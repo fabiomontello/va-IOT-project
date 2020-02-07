@@ -1,2 +1,2 @@
 # va-IOT-project
-LINK: https://github.com/fabiomontello/va-IOT-project
+LINK: https://fabiomontello.github.io/va-IOT-project/pca.html
