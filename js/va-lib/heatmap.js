@@ -1,5 +1,7 @@
 function chart1(){
-    localStorage.setItem('state', 1);
+
+  // console.log(d3.schemeCategory20)
+  localStorage.setItem('state', 1);
   
   document.getElementById("g1").innerHTML="<b class='h5 mb-0 font-weight-bold text-gray-800'>Week:</b> 1-7 January";
   document.getElementById("chart").innerHTML = "";

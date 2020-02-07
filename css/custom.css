@@ -149,10 +149,10 @@ font: 10px sans-serif;
   .axis .tick text.selected {
     font-weight: bold;
     font-size: 1.2em;
-    fill: #47ff63;
+    fill: black;
   }
   .axis .tick line.selected {
-    stroke: #47ff63;  
+    stroke: black;  
   }
   .tip {
     position: absolute;

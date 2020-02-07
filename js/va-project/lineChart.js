@@ -23,7 +23,9 @@
 
     var xAxis = d3.axisBottom(x),
         xAxis2 = d3.axisBottom(x2),
-        yAxis = d3.axisLeft(y);
+        yAxis = d3.axisLeft(y).ticks(7).tickFormat(function (d) {
+                                                        return d+" kW";
+                                                    });
 
     var brush = d3.brushX()
         .extent([[0, 0], [width1, height2]])
@@ -109,7 +111,9 @@
 
         var keys = d3.keys(data[0]).slice(3)
 
-        var color = d3.scaleOrdinal(d3.schemePaired);
+        var color = d3.scaleOrdinal(["#1f77b4", "#aec7e8", "#ff7f0e", "#ffbb78", "#2ca02c", "#98df8a", "#d62728", "#ff9896", "#9467bd", "#c5b0d5", "#8c564b", "#c49c94", "#e377c2", "#f7b6d2", "#7f7f7f", "#c7c7c7", "#bcbd22", "#dbdb8d", "#17becf", "#9edae5"]
+        );
+        // console.log(d3.schemeCategory20)
 
         var stackedData = d3.stack()
                         .keys(keys)
@@ -164,6 +168,7 @@
                             .enter().append('g')
                                     .attr('id',(d)=>'label-'+d.key)
                                     .on("click", function(d){
+                                        console.log('click')
                                         d.selected = !d.selected;
                                         var tmpKeys = []
                                         for (var i = 0; i < stackedData.length; i++) {
@@ -204,21 +209,21 @@
 
         secondLabel.append("text")
                                     .attr("y", 0)
-                                    .attr("x", width1 + (0.8*width2))
+                                    .attr("x", width1 + (0.9*width2))
                                     .attr('text-anchor', 'start')
                                     .attr('alignment-baseline', 'central')
                                     .text('Total Consumption');
 
         secondLabel.append("circle")
                                     .attr("cy", 0)
-                                    .attr("cx", width1 + (0.8*width2) - 15)
+                                    .attr("cx", width1 + (0.9*width2) - 15)
                                     .attr('r', '8')
                                     .attr("fill", 'steelblue')
                                     .attr('id','total-consumption-label');
         secondLabel.append("text")
                                     .attr("class", "total-kw-update")
                                     .attr("y", 0)
-                                    .attr("x", width1 + (0.8*width2)- 30)
+                                    .attr("x", width1 + (0.9*width2)- 30)
                                     .attr('text-anchor', 'end')
                                     .attr('alignment-baseline', 'central')
                                     .text("")
@@ -227,21 +232,21 @@
 
         secondLabel.append("text")
                                     .attr("y", 25)
-                                    .attr("x", width1 + (0.8*width2))
+                                    .attr("x", width1 + (0.9*width2))
                                     .attr('text-anchor', 'start')
                                     .attr('alignment-baseline', 'central')
                                     .text('Generated');
 
         secondLabel.append("circle")
                                     .attr("cy", 25)
-                                    .attr("cx", width1 + (0.8*width2) - 15)
+                                    .attr("cx", width1 + (0.9*width2) - 15)
                                     .attr('r', '8')
                                     .attr("fill", '#b2df8a')
                                     .attr('id','gen-consumption-label');
         secondLabel.append("text")
                                     .attr("class", "gen-kw-update")
                                     .attr("y", 25)
-                                    .attr("x", width1 + (0.8*width2)- 30)
+                                    .attr("x", width1 + (0.9*width2)- 30)
                                     .attr('text-anchor', 'end')
                                     .attr('alignment-baseline', 'central')
                                     .text("")         
@@ -250,23 +255,23 @@
 
         
         labels.append("text")
-                .attr("y", (d,i)=>{return (i*25)})
-                .attr("x", width1 + (0.8*width2))
+                .attr("y", (d,i)=>{return ((i+2)*25)})
+                .attr("x", width1 + (0.9*width2))
                 .attr('text-anchor', 'start')
                 .attr('alignment-baseline', 'central')
                 .text((d,i)=>{return d.key.charAt(0).toUpperCase() + d.key.slice(1)})
 
         labels.append("circle")
-                .attr("cy", (d,i)=>{return (i*25)})
-                .attr("cx", width1 + (0.8*width2) - 15)
+                .attr("cy", (d,i)=>{return ((i+2)*25)})
+                .attr("cx", width1 + (0.9*width2) - 15)
                 .attr('r', '8')
                 .attr("fill", (d)=>d.color)
                 .attr('id',(d)=>'circle-'+d.key);
         
         labels.append("text")
                 .attr("class", "kw-update")
-                .attr("y", (d,i)=>{return (i*25)})
-                .attr("x", width1 + (0.8*width2)- 30)
+                .attr("y", (d,i)=>{return ((i+2)*25)})
+                .attr("x", width1 + (0.9*width2)- 30)
                 .attr('text-anchor', 'end')
                 .attr('alignment-baseline', 'central')
                 .text("")
@@ -325,13 +330,13 @@
                 var idx = mapDateTag.indexOf(closest);
 
                 secondLabel.select('.total-kw-update')
-                            .text(data[idx].use.toFixed(4)+' kW')
+                            .text(data[idx].use.toFixed(3)+' kW')
                             
                 secondLabel.select('.gen-kw-update')
-                            .text(data[idx].gen.toFixed(4)+' kW')
+                            .text(data[idx].gen.toFixed(3)+' kW')
 
                 labels.selectAll('.kw-update')
-                        .text((d, i)=>{return data[idx][d.key].toFixed(4)+' kW'})
+                        .text((d, i)=>{return data[idx][d.key].toFixed(3)+' kW'})
                 
                 var xLine = x(data[idx].date)
                 
