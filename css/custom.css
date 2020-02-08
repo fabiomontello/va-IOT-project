@@ -112,7 +112,7 @@ font: 10px sans-serif;
 
 .foreground path {
     fill: none;
-    stroke: steelblue;
+    /* stroke: steelblue; */
 }
 
 .brush .extent {
@@ -143,18 +143,18 @@ font: 10px sans-serif;
     stroke: #000;
     stroke-width: 2px;
   }
-  .axis .domain {
+  #corrmat .axis .domain {
     display: none;
   }
-  .axis .tick text.selected {
+  #corrmat .axis .tick text.selected {
     font-weight: bold;
     font-size: 1.2em;
     fill: black;
   }
-  .axis .tick line.selected {
+  #corrmat .axis .tick line.selected {
     stroke: black;  
   }
-  .tip {
+  #corrmat .tip {
     position: absolute;
     font-size: .8em;
     text-align: center;

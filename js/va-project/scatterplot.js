@@ -2,7 +2,7 @@
     var w = 960,
         h = 400
     // set the dimensions and margins of the graph
-    var margin = {top: 30, right: 30, bottom: 30, left: 60},
+    var margin = {top: 30, right: 40, bottom: 10, left: 30},
         width = w - margin.left - margin.right,
         height = h - margin.top - margin.bottom;
     var idSelected = [];
@@ -18,7 +18,10 @@
                     .append("g")
                         .attr("transform",
                             "translate(" + margin.left + "," + margin.top + ")");
-
+    
+    
+    var color = d3.scaleSequential(d3.interpolateYlGnBu);
+                        
     //Read the data
     d3.csv("data/pca.csv", function(d, i){
        if( i %5 == 0){ // Campionamento ogni 5 minuti 
@@ -32,11 +35,12 @@
         };
     }).then( function(data){
 
+        // console.log(d3.extent(data, (d)=>{ return d.use}))
         // Add X axis
         var x = d3.scaleLinear()
-            .domain([d3.min(data, function(d) { return d.pc1; }) -1, 
-                     d3.max(data, function(d) { return d.pc1; }) +1])
-            .range([ 0, width ]);
+            .domain([d3.min(data, function(d) { return d.pc1 -0.2}), 
+                     d3.max(data, function(d) { return d.pc1 +0.2})])
+            .range([ 0, width *0.9]);
 
         var xAxis = scatt.append("g")
             .attr("transform", "translate(0," + height + ")")
@@ -44,8 +48,8 @@
 
         // Add Y axis
         var y = d3.scaleLinear()
-            .domain([d3.min(data, function(d) { return d.pc1; }) -3, 
-                d3.max(data, function(d) { return d.pc1; }) +1])
+            .domain([d3.min(data, function(d) { return d.pc2 -0.2}), 
+                d3.max(data, function(d) { return d.pc2 +0.2 })])
             .range([ height, 0]);
 
         var yAxis = scatt.append("g")
@@ -61,16 +65,15 @@
                                         .attr("y", 0);
 
         // Color scale: give me a specie name, I return a color
-        var color = d3.scaleSequential(d3.interpolatePlasma)
-                        .domain(d3.extent(data, (d)=>{ return d.use}))
-
+        color.domain([d3.max(data, (d)=>{ return d.use}),0]) //d3.extent(data, (d)=>{ return d.use})
+                console.log(d3.max(data, (d)=>{ return d.use}))
     //                     d3.scaleSequential(d3.interpolateInferno)
     // .domain([0, width])
         // console.log(d3.extent(data, (d)=>{ return d.use}))
 
         // Add brushing
         var brush = d3.brush()                 // Add the brush feature using the d3.brush function
-            .extent( [ [0,0], [width,height] ] ) // initialise the brush area: start at 0,0 and finishes at width,height: it means I select the whole graph area
+            .extent( [ [0,0], [width*0.9,height] ] ) // initialise the brush area: start at 0,0 and finishes at width,height: it means I select the whole graph area
             .on("end", function(){
 
                 var extent = d3.event.selection
@@ -163,6 +166,80 @@
         var idleTimeout
         function idled() { idleTimeout = null; }
 
+        //Append a defs (for definition) element to your SVG
+        var defs = scatt.append("defs");
+
+        //Append a linearGradient element to the defs and give it a unique id
+        var linearGradient = defs.append("linearGradient")
+            .attr("id", "linear-gradient");
+
+        linearGradient
+            .attr("x1", "0%")
+            .attr("y1", "0%")
+            .attr("x2", "0%")
+            .attr("y2", "100%");
+
+        //Set the color for the start (0%)
+        linearGradient.append("stop")
+                        .attr("offset", "0%")
+                        .attr("stop-color", color(d3.max(data, (d)=>{ return d.use;}))); //light blue 
+        
+        linearGradient.append("stop")
+                        .attr("offset", "50%")
+                        .attr("stop-color", color(d3.max(data, (d)=>{ return d.use;})/2)); //light blue
+
+        //Set the color for the end (100%)
+        linearGradient.append("stop")
+                        .attr("offset", "100%")
+                        .attr("stop-color", color(0)); //dark blue
+
+        scatt.append("rect")
+                .attr('x', (width*0.9)+60)
+                .attr('y', 10)
+                .attr('width', 20)
+                .attr('height', height-10)
+                .attr('fill', "url(#linear-gradient)");
+
+        scatt.append('text')
+                .attr("x", (width*0.9)+85)
+                .attr('y', 10)
+                .attr('alignment-baseline', 'hanging')
+                .text(d3.max(data, (d)=>{ return d.use.toFixed(3);}) + " kW")
+
+        scatt.append('text')
+                .attr("x", (width*0.9)+85)
+                .attr('y', height)
+                .attr('alignment-baseline', 'ideographic')
+                .text("0 kW")
+        
+        scatt.append('text')
+                .attr("x", (width*0.9)+85)
+                .attr('y', height/2)
+                .attr('alignment-baseline', 'middle')
+                .text((d3.max(data, (d)=>{ return d.use;})/2).toFixed(3) + " kW")
+
+        scatt.append("text")             
+                .attr("transform",
+                      "translate(" + ((width*0.9)/2) + " ," + 
+                                     (height + margin.top) + ")")
+                .style("text-anchor", "middle")
+                .text("PC1");
+          
+        // text label for the y axis
+        scatt.append("text")
+            .attr("transform", "rotate(-90)")
+            .attr("y", 0 - margin.left)
+            .attr("x",0 - (height / 2))
+            .attr("dy", "1em")
+            .style("text-anchor", "middle")
+            .text("PC2"); 
+        // scatt.selectAll("text")
+        //     .data(stops)
+        //     .enter().append("text")
+        //     .attr("x", function(d){ return (width-150) * d.offset; })
+        //     .attr("dy", -3)
+        //     .style("text-anchor", function(d, i){ return i == 0 ? "start" : i == 1 ? "middle" : "end"; })
+        //     .text(function(d, i){ return d.value.toFixed(2); })
 
 
     })
@@ -204,6 +281,7 @@
         };
         })
     .then(function(data) {
+        color.domain([d3.max(data, (d)=>{ return d.use}),0]) //d3.extent(data, (d)=>{ return d.use})
         // Extract the list of dimensions and create a scale for each.
         x.domain(dimensions = d3.keys(data[0]).filter(function(d) {
             return d != "use" && d != "display" && d != "id" && (y[d] = d3.scaleLinear()
@@ -224,8 +302,10 @@
             .attr("class", "foreground")
             .selectAll("path")
             .data(data)
-            .enter().append("path")
+            .enter()
+            .append("path")
             .attr("d", path)
+            .attr("stroke", (d)=> color(d.use))
             .attr("id",(d)=>{return "fore-"+d.id});
 
         // Add a group element for each dimension.
