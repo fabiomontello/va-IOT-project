@@ -1,6 +1,6 @@
 function boxpl(){
 // set the dimensions and margins of the graph
-
+localStorage.setItem('stat2', 1);
 document.getElementById("boxplt").style.display="block";
 document.getElementById("brpplt").style.display="none";
 document.getElementById("bxm").style.display="none";
@@ -47,22 +47,23 @@ d3.csv("data/clean_dataset.csv", function(error, rows) {
       mi.push(rows[i]['Microwave [kW]']);
       li.push(rows[i]['Living room [kW]']);
   }
+  var lung=di.length;
 
   var sumstat=[
-  {key: "Dishwasher", value:{q1: getCII(di, di.length)[1], median: getCII(di, di.length)[2], q3: getCII(di, di.length)[3], interQuantileRange: (getCII(di, di.length)[3]-getCII(di, di.length)[1]), min: getCII(di, di.length)[0], max: getCII(di, di.length)[4]}},
-  {key: "Furnace 1", value:{q1: getCII(f1, f1.length)[1], median: getCII(f1, f1.length)[2], q3: getCII(f1, f1.length)[3], interQuantileRange: (getCII(f1, f1.length)[3]-getCII(f1, f1.length)[1]), min: getCII(f1, f1.length)[0], max: getCII(f1, f1.length)[4]}},
-  {key: "Furnace 2", value:{q1: getCII(f2, f2.length)[1], median: getCII(f2, f2.length)[2], q3: getCII(f2, f2.length)[3], interQuantileRange: (getCII(f2, f2.length)[3]-getCII(f2, f2.length)[1]), min: getCII(f2, f2.length)[0], max: getCII(f2, f2.length)[4]}},
-  {key: 'Home office', value:{q1: getCII(ho, ho.length)[1], median: getCII(ho, ho.length)[2], q3: getCII(ho, ho.length)[3], interQuantileRange: (getCII(ho, ho.length)[3]-getCII(ho, ho.length)[1]), min: getCII(ho, ho.length)[0], max: getCII(ho, ho.length)[4]}},
-  {key: 'Fridge', value:{q1: getCII(fr, fr.length)[1], median: getCII(fr, fr.length)[2], q3: getCII(fr, fr.length)[3], interQuantileRange: (getCII(fr, fr.length)[3]-getCII(fr, fr.length)[1]), min: getCII(fr, fr.length)[0], max: getCII(fr, fr.length)[4]}},
-  {key: 'Wine cellar', value:{q1: getCII(wc, wc.length)[1], median: getCII(wc, wc.length)[2], q3: getCII(wc, wc.length)[3], interQuantileRange: (getCII(wc, wc.length)[3]-getCII(wc, wc.length)[1]), min: getCII(wc, wc.length)[0], max: getCII(wc, wc.length)[4]}},
-  {key: 'Garage door', value:{q1: getCII(gd, gd.length)[1], median: getCII(gd, gd.length)[2], q3: getCII(gd, gd.length)[3], interQuantileRange: (getCII(gd, gd.length)[3]-getCII(gd, gd.length)[1]), min: getCII(gd, gd.length)[0], max: getCII(gd, gd.length)[4]}},
-  {key: 'Kitchen 12', value:{q1: getCII(k1, k1.length)[1], median: getCII(k1, k1.length)[2], q3: getCII(k1, k1.length)[3], interQuantileRange: (getCII(k1, k1.length)[3]-getCII(k1, k1.length)[1]), min: getCII(k1, k1.length)[0], max: getCII(k1, k1.length)[4]}},
-  {key: 'Kitchen 14', value:{q1: getCII(k2, k2.length)[1], median: getCII(k2, k2.length)[2], q3: getCII(k2, k2.length)[3], interQuantileRange: (getCII(k2, k2.length)[3]-getCII(k2, k2.length)[1]), min: getCII(k2, k2.length)[0], max: getCII(k2, k2.length)[4]}},
-  {key: 'Kitchen 38', value:{q1: getCII(k3, k3.length)[1], median: getCII(k3, k3.length)[2], q3: getCII(k3, k3.length)[3], interQuantileRange: (getCII(k3, k3.length)[3]-getCII(k3, k3.length)[1]), min: getCII(k3, k3.length)[0], max: getCII(k3, k3.length)[4]}},
-  {key: 'Barn', value:{q1: getCII(ba, ba.length)[1], median: getCII(ba, ba.length)[2], q3: getCII(ba, ba.length)[3], interQuantileRange: (getCII(ba, ba.length)[3]-getCII(ba, ba.length)[1]), min: getCII(ba, ba.length)[0], max: getCII(ba, ba.length)[4]}},
-  {key: 'Well', value:{q1: getCII(we, we.length)[1], median: getCII(we, we.length)[2], q3: getCII(we, we.length)[3], interQuantileRange: (getCII(we, we.length)[3]-getCII(we, we.length)[1]), min: getCII(we, we.length)[0], max: getCII(we, we.length)[4]}},
-  {key: 'Microwave', value:{q1: getCII(mi, mi.length)[1], median: getCII(mi, mi.length)[2], q3: getCII(mi, mi.length)[3], interQuantileRange: (getCII(mi, mi.length)[3]-getCII(mi, mi.length)[1]), min: getCII(mi, mi.length)[0], max: getCII(mi, mi.length)[4]}},
-  {key: 'Living room', value:{q1: getCII(li, li.length)[1], median: getCII(li, li.length)[2], q3: getCII(li, li.length)[3], interQuantileRange: (getCII(li, li.length)[3]-getCII(li, li.length)[1]), min: getCII(li, li.length)[0], max: getCII(li, li.length)[4]}}
+  {key: "Dishwasher", value:{q1: getCII(di, lung)[1], median: getCII(di, lung)[2], q3: getCII(di, lung)[3], interQuantileRange: (getCII(di, lung)[3]-getCII(di,lung)[1]), min: getCII(di, lung)[0], max: getCII(di, lung)[4]}},
+  {key: "Furnace 1", value:{q1: getCII(f1, lung)[1], median: getCII(f1, lung)[2], q3: getCII(f1, lung)[3], interQuantileRange: (getCII(f1, lung)[3]-getCII(f1, lung)[1]), min: getCII(f1, lung)[0], max: getCII(f1, lung)[4]}},
+  {key: "Furnace 2", value:{q1: getCII(f2, lung)[1], median: getCII(f2, lung)[2], q3: getCII(f2, lung)[3], interQuantileRange: (getCII(f2, lung)[3]-getCII(f2, lung)[1]), min: getCII(f2, lung)[0], max: getCII(f2, lung)[4]}},
+  {key: 'Home office', value:{q1: getCII(ho, lung)[1], median: getCII(ho, lung)[2], q3: getCII(ho, lung)[3], interQuantileRange: (getCII(ho, lung)[3]-getCII(ho, lung)[1]), min: getCII(ho, lung)[0], max: getCII(ho, lung)[4]}},
+  {key: 'Fridge', value:{q1: getCII(fr, lung)[1], median: getCII(fr,lung)[2], q3: getCII(fr, lung)[3], interQuantileRange: (getCII(fr, lung)[3]-getCII(fr, lung)[1]), min: getCII(fr, lung)[0], max: getCII(fr, lung)[4]}},
+  {key: 'Wine cellar', value:{q1: getCII(wc, lung)[1], median: getCII(wc, lung)[2], q3: getCII(wc, lung)[3], interQuantileRange: (getCII(wc, lung)[3]-getCII(wc, lung)[1]), min: getCII(wc, lung)[0], max: getCII(wc, lung)[4]}},
+  {key: 'Garage door', value:{q1: getCII(gd, lung)[1], median: getCII(gd, lung)[2], q3: getCII(gd, lung)[3], interQuantileRange: (getCII(gd, lung)[3]-getCII(gd, lung)[1]), min: getCII(gd, lung)[0], max: getCII(gd, lung)[4]}},
+  {key: 'Kitchen 12', value:{q1: getCII(k1, lung)[1], median: getCII(k1, lung)[2], q3: getCII(k1, lung)[3], interQuantileRange: (getCII(k1, lung)[3]-getCII(k1, lung)[1]), min: getCII(k1, lung)[0], max: getCII(k1, lung)[4]}},
+  {key: 'Kitchen 14', value:{q1: getCII(k2, lung)[1], median: getCII(k2, lung)[2], q3: getCII(k2, lung)[3], interQuantileRange: (getCII(k2, lung)[3]-getCII(k2, lung)[1]), min: getCII(k2, lung)[0], max: getCII(k2, lung)[4]}},
+  {key: 'Kitchen 38', value:{q1: getCII(k3, lung)[1], median: getCII(k3, lung)[2], q3: getCII(k3, lung)[3], interQuantileRange: (getCII(k3, lung)[3]-getCII(k3, lung)[1]), min: getCII(k3, lung)[0], max: getCII(k3, lung)[4]}},
+  {key: 'Barn', value:{q1: getCII(ba, lung)[1], median: getCII(ba, lung)[2], q3: getCII(ba, lung)[3], interQuantileRange: (getCII(ba, lung)[3]-getCII(ba, lung)[1]), min: getCII(ba, lung)[0], max: getCII(ba, lung)[4]}},
+  {key: 'Well', value:{q1: getCII(we, lung)[1], median: getCII(we, lung)[2], q3: getCII(we, lung)[3], interQuantileRange: (getCII(we, lung)[3]-getCII(we, lung)[1]), min: getCII(we, lung)[0], max: getCII(we, lung)[4]}},
+  {key: 'Microwave', value:{q1: getCII(mi,lung)[1], median: getCII(mi, lung)[2], q3: getCII(mi, lung)[3], interQuantileRange: (getCII(mi, lung)[3]-getCII(mi, lung)[1]), min: getCII(mi, lung)[0], max: getCII(mi, lung)[4]}},
+  {key: 'Living room', value:{q1: getCII(li, lung)[1], median: getCII(li, lung)[2], q3: getCII(li, lung)[3], interQuantileRange: (getCII(li, lung)[3]-getCII(li, lung)[1]), min: getCII(li, lung)[0], max: getCII(li, lung)[4]}}
   ];
 
 

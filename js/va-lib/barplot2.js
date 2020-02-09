@@ -1,6 +1,8 @@
 function get_bar3(keys, dayss){
+localStorage.setItem('state2', 3);
 document.getElementById("boxplt").style.display="none";
 document.getElementById("brpplt").innerHTML = "";
+document.getElementById("bxm").style.display="block";
 
 var margin = {top: 30, right: 30, bottom: 70, left: 60},
     width = 1260 - margin.left - margin.right,
@@ -85,8 +87,13 @@ d3.csv("data/clean_dataset.csv", function(datas) {
 
 
 function get_bar2(keys){
+localStorage.setItem('state2', 2);
+localStorage.setItem('keyss', keys);
+
 document.getElementById("boxplt").style.display="none";
 document.getElementById("brpplt").style.display="block";
+document.getElementById("bxm").style.display="block";
+document.getElementById("brpplt").innerHTML = "";
 
 var margin = {top: 30, right: 30, bottom: 70, left: 60},
     width = 1260 - margin.left - margin.right,

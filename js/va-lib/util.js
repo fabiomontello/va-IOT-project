@@ -47,3 +47,13 @@ function back_state(){
     	chart1();
     }
 }
+
+function back_state2(){
+    var st=localStorage.getItem('state2');
+    if(st==3){
+        var k=localStorage.getItem('keyss');
+        get_bar2(k);
+    }else{
+        boxpl();
+    }
+}
