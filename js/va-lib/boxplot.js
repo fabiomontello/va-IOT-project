@@ -1,5 +1,10 @@
-
+function boxpl(){
 // set the dimensions and margins of the graph
+
+document.getElementById("boxplt").style.display="block";
+document.getElementById("brpplt").style.display="none";
+document.getElementById("bxm").style.display="none";
+document.getElementById("boxplt").innerHTML = "";
 var margin = {top: 40, right: 30, bottom: 30, left: 40},
     width = 1160 - margin.left - margin.right,
     height = 600 - margin.top - margin.bottom;
@@ -61,6 +66,7 @@ d3.csv("data/clean_dataset.csv", function(error, rows) {
   ];
 
 
+
   // Show the X scale
   var x = d3.scaleBand()
     .range([ 0, width ])
@@ -74,7 +80,7 @@ d3.csv("data/clean_dataset.csv", function(error, rows) {
 
   // Show the Y scale
   var y = d3.scaleLinear()
-    .domain([0, 0.25])
+    .domain([0, 0.15])
     .range([height, 0])
   svg.append("g").call(d3.axisLeft(y))
 
@@ -105,10 +111,10 @@ d3.csv("data/clean_dataset.csv", function(error, rows) {
         .attr("height", function(d){return(y(d.value.q1)-y(d.value.q3))})
         .attr("width", boxWidth )
         .attr("stroke", "black")
-        .style("fill", "#c3c3c3")
+        .style("fill", "#4e73df")
         .style("cursor", "pointer")
         .on("click", function(d) {
-          
+          get_bar2(d.key);
          })
         .on("mouseover", function(d){ d3.select("#box"+d.key.replace(/ /g,'').replace('[','').replace(']','')).style("opacity", "1");})
         .on("mouseleave", function(d){ d3.select("#box"+d.key.replace(/ /g,'').replace('[','').replace(']','')).style("opacity", "0");})
@@ -190,3 +196,6 @@ d3.csv("data/clean_dataset.csv", function(error, rows) {
       .style("opacity", .5);
 
 })
+}
+
+boxpl();

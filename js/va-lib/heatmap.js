@@ -1,8 +1,6 @@
 function chart1(){
-
-  // console.log(d3.schemeCategory20)
   localStorage.setItem('state', 1);
-  
+  document.getElementById("bac").style.display="none";
   document.getElementById("g1").innerHTML="<b class='h5 mb-0 font-weight-bold text-gray-800'>Week:</b> 1-7 January";
   document.getElementById("chart").innerHTML = "";
   var margin = { top: 20, right: 0, bottom: 100, left: 40 },

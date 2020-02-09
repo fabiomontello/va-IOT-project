@@ -1,10 +1,14 @@
 
 function chart3(time, hours, dev){ // m, cl, ch,
     localStorage.setItem('state', 3);
-    document.getElementById("g1").innerHTML="<b class='h5 mb-0 font-weight-bold text-gray-800'>Day:</b> "+time+" January, <b class='h5 mb-0 font-weight-bold text-gray-800'>Hour:</b> "+hours+":00, <b class='h5 mb-0 font-weight-bold text-gray-800'>Device:</b> "+dev+"";
+    localStorage.setItem('day', time);
+    localStorage.setItem('hour', hours);
+    localStorage.setItem('dev', dev);
 
+    document.getElementById("g1").innerHTML="<b class='h5 mb-0 font-weight-bold text-gray-800'>Day:</b> "+time+" January, <b class='h5 mb-0 font-weight-bold text-gray-800'>Hour:</b> "+hours+":00, <b class='h5 mb-0 font-weight-bold text-gray-800'>Device:</b> "+dev+"";
+    document.getElementById("bac").style.display="block";
     document.getElementById("chart").innerHTML = "";
-    var margin = {top: 10, right: 30, bottom: 10, left: 20},
+    var margin = {top: 10, right: 30, bottom: 10, left: 30},
     margin2 = {top: 600, right: 20, bottom: 30, left: 40},
     width =  1200 - margin.left - margin.right,
     height = 400- margin.top - margin.bottom;
@@ -74,21 +78,31 @@ function chart3(time, hours, dev){ // m, cl, ch,
     var context = svg.append("g")
         .attr("class", "context")
         .attr("transform", "translate(" + margin2.left + "," + margin2.top+50 + ")");
-  var data=[];
-  var devv=[];
+
+
+
   d3.csv("data/clean_dataset.csv", function (error, datas) {
+      var data=[];
+      var devv=[];
+
       var i;
       var l=0;
-      for (i=0; i<61; i++) {
+      for (i=0; i<datas.length; i++) {
         var date = new Date(datas[i]['time']*1000);
-        data[l]={Date: date, kw: datas[i][dev]};
-        devv.push(datas[i][dev]);
-        l=l+1;
+        if((parseInt(date.getDate())==parseInt(time)) && (parseInt(date.getHours())==parseInt(hours))){
+          data[l]={Date: date, kw: datas[i][dev]};
+          console.log(date);
+          l=l+1;
+        }
+        if(parseInt(date.getHours())==parseInt(hours)){
+          devv.push(datas[i][dev]);
+          console.log(datas[i][dev]);
+        }
       }
-  var c_i = getCI(devv, devv.length)
+  var c_i = getCI(devv, devv.length) 
 
-  x.domain(d3.extent(data, function(d) { return d.Date; }));
-  y.domain([0, d3.max(data, function (d) { return d.kw; })]);
+  x.domain(d3.extent(data, function(d) { return d.Date }));
+  y.domain([0, d3.max(data, function (d) { if(d.kw>c_i[2]){return d.kw;}else{return c_i[2];} })]);
   x2.domain(x.domain());
   y2.domain(y.domain());
 

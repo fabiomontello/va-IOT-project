@@ -15,10 +15,15 @@ function getSD(data, len) {
 
 // Confidential interval 95%
 function getCI(data, len){
+    var inter=parseInt(localStorage.getItem('interval'));
+    if(isNaN(inter)){
+        inter=1.96;
+    }
+   // alert(inter);
 	mean=getMean(data, len);
 	std=getSD(data, len);
-	low=mean-1.95*(std/Math.sqrt(len));
-	high=mean+1.95*(std/Math.sqrt(len));
+	low=mean-inter*(std/Math.sqrt(len));
+	high=mean+inter*(std/Math.sqrt(len));
     return [low,mean,high];
 };
 
