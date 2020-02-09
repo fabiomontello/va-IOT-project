@@ -5,6 +5,7 @@ document.getElementById("boxplt").style.display="block";
 document.getElementById("brpplt").style.display="none";
 document.getElementById("bxm").style.display="none";
 document.getElementById("boxplt").innerHTML = "";
+document.getElementById("brpplt1").innerHTML = "";
 var margin = {top: 40, right: 30, bottom: 30, left: 40},
     width = 1160 - margin.left - margin.right,
     height = 600 - margin.top - margin.bottom;
@@ -112,7 +113,7 @@ d3.csv("data/clean_dataset.csv", function(error, rows) {
         .attr("height", function(d){return(y(d.value.q1)-y(d.value.q3))})
         .attr("width", boxWidth )
         .attr("stroke", "black")
-        .style("fill", "#4e73df")
+        .style("fill", "#1d91c0")
         .style("cursor", "pointer")
         .on("click", function(d) {
           get_bar2(d.key);
