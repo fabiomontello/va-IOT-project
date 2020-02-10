@@ -8,7 +8,7 @@ function chart3(time, hours, dev){ // m, cl, ch,
     document.getElementById("g1").innerHTML="<b class='h5 mb-0 font-weight-bold text-gray-800'>Day:</b> "+time+" January, <b class='h5 mb-0 font-weight-bold text-gray-800'>Hour:</b> "+hours+":00, <b class='h5 mb-0 font-weight-bold text-gray-800'>Device:</b> "+dev+"";
     document.getElementById("bac").style.display="block";
     document.getElementById("chart").innerHTML = "";
-    var margin = {top: 10, right: 30, bottom: 10, left: 30},
+    var margin = {top: 40, right: 30, bottom: 10, left: 30},
     margin2 = {top: 600, right: 20, bottom: 30, left: 40},
     width =  1200 - margin.left - margin.right,
     height = 400- margin.top - margin.bottom;
@@ -17,7 +17,7 @@ function chart3(time, hours, dev){ // m, cl, ch,
 
     var svg = d3.select("#chart").append("div")
               .classed("svg-container", true) 
-              .attr('style','padding-bottom: 36%')
+              .attr('style','padding-bottom: 40%')
               .append("svg")
               .attr("preserveAspectRatio", "xMinYMin meet")
               .attr("viewBox", "0 0 "+(width+margin.left+margin.right)+" "+height+"")
@@ -28,6 +28,7 @@ function chart3(time, hours, dev){ // m, cl, ch,
               .append("g")
               .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
+      
     var parseDate = d3.timeParse("%m/%d/%Y %H:%M");
 
     var x = d3.scaleTime().range([0, width]),
@@ -91,7 +92,6 @@ function chart3(time, hours, dev){ // m, cl, ch,
         var date = new Date(datas[i]['time']*1000);
         if((parseInt(date.getDate())==parseInt(time)) && (parseInt(date.getHours())==parseInt(hours))){
           data[l]={Date: date, kw: datas[i][dev]};
-          console.log(date);
           l=l+1;
         }
         if(parseInt(date.getHours())==parseInt(hours)){
@@ -145,26 +145,44 @@ function chart3(time, hours, dev){ // m, cl, ch,
   svg.append("line")
         .attr("x1", 0)
         .attr("x2", width)
-        .attr("y1", y(c_i[1]))
-        .attr("y2", y(c_i[1]))
+        .attr("y1", 0)
+        .attr("y2", 0)
+        .transition().duration(1750)
+        .attr("y1", function(d) {return y(c_i[1]);})
+        .attr("y2", function(d) {return y(c_i[1]);})
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
         .style("stroke", "rgb(34,139,34)");
 
   svg.append("line")
         .attr("x1", 0)
         .attr("x2", width)
-        .attr("y1", y(c_i[2]))
-        .attr("y2", y(c_i[2]))
+        .attr("y1", 0)
+        .attr("y2", 0)
+        .transition().duration(1750)
+        .attr("y1", function(d) {return y(c_i[2]);})
+        .attr("y2", function(d) {return y(c_i[2]);})
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
         .style("stroke", "rgb(255, 0, 0)");
 
   svg.append("line")
         .attr("x1", 0)
         .attr("x2", width)
-        .attr("y1", y(c_i[0]))
-        .attr("y2", y(c_i[0]))
+        .attr("y1", 0)
+        .attr("y2", 0)
+        .transition().duration(1750)
+        .attr("y1", function(d) {return y(c_i[0]);})
+        .attr("y2", function(d) {return y(c_i[0]);})
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
         .style("stroke", "rgb(255, 0, 0)");
+
+
+    svg.append("text")
+        .attr("x", (width / 2))             
+        .attr("y", 0 - (margin.top-30 / 2))
+        .attr("text-anchor", "middle")  
+        .style("font-size", "16px") 
+        .style("text-decoration", "underline")  
+        .text("95% confidence interval");
  
   });
 

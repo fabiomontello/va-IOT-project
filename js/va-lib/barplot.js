@@ -6,7 +6,7 @@ function chart2(dd, hh){
     document.getElementById("g1").innerHTML="<b class='h5 mb-0 font-weight-bold text-gray-800'>Day:</b> "+dd+" January, <b class='h5 mb-0 font-weight-bold text-gray-800'>Hour:</b> "+hh+":00";
     document.getElementById("bac").style.display="block";
     document.getElementById("chart").innerHTML = "";
-    var margin = {top: 20, right: 10, bottom: 30, left: 100},
+    var margin = {top: 40, right: 10, bottom: 30, left: 100},
     width = 1160 - margin.left - margin.right,
     height = 500 - margin.top - margin.bottom;
 
@@ -88,6 +88,14 @@ d3.csv("data/clean_dataset.csv", function(error, datas) {
           chart3(dd, hh, d.salesperson+" [kW]");
       })
       .append("title").text(function(d) { return "Value: "+Number((d.sales).toFixed(4))+ "Kw"; });
+
+      svg.append("text")
+        .attr("x", (width / 2))             
+        .attr("y", 0 - (margin.top-30 / 2))
+        .attr("text-anchor", "middle")  
+        .style("font-size", "16px") 
+        .style("text-decoration", "underline")  
+        .text("95% confidence interval");
       
   // add the x Axis
   svg.append("g")
@@ -146,55 +154,60 @@ d3.csv("data/clean_dataset.csv", function(error, datas) {
   
   console.log(interval);
 
+
   svg.append("g")
       .selectAll("myRect")
       .data(interval)
       .enter()
       .append("rect")
-        .attr("x", function(d) {return x(d.mean); } )
+        .attr("x", 0)
         .attr("y", function(d) { return y(d.device); })
+        .transition().duration(1750).attr("x", function(d) {return x(d.mean); } )
         .attr("width", "3px")
         .attr("height", "28px")
         .attr("fill", "#228B22")
-      .style("cursor", "pointer")
-      ///.attr("transform", "translate(0,+17.5)")
-            //.attr("transform", "translate(" + margin.left + "," + margin.top + ")")
-      .append("title").text(function(d) { return "Mean: "+Number((d.mean).toFixed(4)) + "Kw"; });
-      
+        .style("cursor", "pointer")
+
   svg.append("g")
       .selectAll("myRect")
       .data(interval)
       .enter()
       .append("rect")
-        .attr("x", function(d) {return x(d.ci95_hi); } )
+       // .transition().duration(1550)
+        .attr("x", 0)
         .attr("y", function(d) { return y(d.device); })
+        .transition().duration(1750).attr("x", function(d) {return x(d.ci95_hi); } )
         .attr("width", "3px")
         .attr("height", "28px")
         .attr("fill", "#F31526")
-      .style("cursor", "pointer")
-      //.attr("transform", "translate(0,+17.5)")
+        .style("cursor", "pointer")
+      //.transition() // and apply changes to all of them
+     //.duration(1000)
+     // .transition().duration(750)
            // .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
-      .append("title").text(function(d) { return "Upper Bound: "+Number((d.ci95_hi).toFixed(4)) + "Kw"; });
+      //.append("title").text(function(d) { return "Upper Bound: "+Number((d.ci95_hi).toFixed(4)) + "Kw"; });
       
   svg.append("g")
       .selectAll("myRect")
       .data(interval)
       .enter()
       .append("rect")
-        .attr("x", function(d) { 
-        	if(d.ci95_lo<0){
-        		return x(0);
-        	}
-        	return x(d.ci95_lo); 
-        })
+        .attr("x", 0)
         .attr("y", function(d) { return y(d.device); })
+        .transition().duration(1750).attr("x", function(d) { 
+          if(d.ci95_lo<0){
+            return x(0);
+          }
+          return x(d.ci95_lo); 
+        })
         .attr("width", "3px")
         .attr("height", "28px")
         .attr("fill", "#F31526")
       //.style("cursor", "pointer")
            // .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
-      .append("title").text(function(d) { return "Lower Bound: "+ Number((d.ci95_lo).toFixed(4)) + "Kw"; });
-  });
+      //.append("title").text(function(d) { return "Lower Bound: "+ Number((d.ci95_lo).toFixed(4)) + "Kw"; });
+
+ });
 
 });
 

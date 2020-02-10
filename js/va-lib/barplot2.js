@@ -1,9 +1,9 @@
-
-var margin = {top: 0, right: 30, bottom: 70, left: 90},
+var margin = {top: 50, right: 30, bottom: 70, left: 90},
     width = 720 - margin.left - margin.right,
     height = 460 - margin.top - margin.bottom;
 
 var svg = d3.select("#brpplt2")
+
   .append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
@@ -48,6 +48,7 @@ function update(data, day) {
       .attr("y", function(d) { return y(0); })
       .attr("height", function(d) { return height - y(0); })
       .attr("fill", "#1C91C0")
+      .style("cursor", "pointer")
     .transition() // and apply changes to all of them
     .duration(1000)
       .attr("y", function(d) { return y(d.value); })
@@ -62,18 +63,21 @@ function update(data, day) {
     .merge(u) // get the already existing elements as well
       .attr("x", function(d) { return x(d.day); })
       .attr("width", x.bandwidth())
-      // .attr("y", function(d) { return y(0); })
-      // .attr("height", function(d) { return height - y(0); })
       .attr("fill", "#1C91C0")
+      .style("cursor", "pointer")
     .transition() // and apply changes to all of them
     .duration(1000)
       .attr("y", function(d) { return y(d.value); })
       .attr("height", function(d) { return height - y(d.value); })
     .delay(function(d,i){ return(i*50)})
+
   }
+  
+  svg.selectAll("rect")
+      .data(data)
+      .append("title")
+        .text(function(d) { return Number((d.value).toFixed(5))+" KW"; });
 
-
-  // If less group in the new dataset, I delete the ones not in use anymore
   u
     .exit()
     .remove()
@@ -123,7 +127,7 @@ document.getElementById("bxm").style.display="block";
 document.getElementById("brpplt2").style.display="none";
 
 
-var margin = {top: 20, right: 30, bottom: 70, left: 60},
+var margin = {top: 40, right: 30, bottom: 70, left: 60},
     width = 520 - margin.left - margin.right,
     height = 500 - margin.top - margin.bottom;
 
@@ -195,6 +199,7 @@ d3.csv("data/clean_dataset.csv", function(datas) {
       .attr("y", function(d) { return y(d.value); })
       .attr("height", function(d) { return height - y(d.value); })
       .attr("fill", "#1C91C0")
+
     
   // Create labels inside the rect
   svg.append('g')
@@ -226,6 +231,14 @@ d3.csv("data/clean_dataset.csv", function(datas) {
          	get_bar3(device, d.day);
        })
        .append("title").text(function(d) { return Number((d.value).toFixed(5))+" KW"; });
+
+    svg.append("text")
+        .attr("x", (width / 2))             
+        .attr("y", 0 - (margin.top-30 / 2))
+        .attr("text-anchor", "middle")  
+        .style("font-size", "16px") 
+        .style("text-decoration", "underline")  
+        .text(function(d) { return keys; });
    
 })
 }

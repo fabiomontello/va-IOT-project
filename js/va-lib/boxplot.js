@@ -26,6 +26,7 @@ var svg = d3.select("#boxplt")
     .attr("transform",
           "translate(" + margin.left + "," + margin.top + ")");
 
+
 d3.csv("data/clean_dataset.csv", function(error, rows) {
 
   var i;
@@ -67,9 +68,8 @@ d3.csv("data/clean_dataset.csv", function(error, rows) {
   {key: 'Living room', value:{q1: getCII(li, lung)[1], median: getCII(li, lung)[2], q3: getCII(li, lung)[3], interQuantileRange: (getCII(li, lung)[3]-getCII(li, lung)[1]), min: getCII(li, lung)[0], max: getCII(li, lung)[4]}}
   ];
 
+  localStorage.setItem('global', JSON.stringify(sumstat));
 
-
-  // Show the X scale
   var x = d3.scaleBand()
     .range([ 0, width ])
     .domain(["Dishwasher", "Furnace 1", "Furnace 2", "Home office", "Fridge", "Wine cellar", "Garage door", "Kitchen 12", "Kitchen 14", "Kitchen 38", "Barn", "Well", "Microwave", "Living room"])
@@ -120,6 +120,7 @@ d3.csv("data/clean_dataset.csv", function(error, rows) {
         .style("cursor", "pointer")
         .on("click", function(d) {
           get_bar2(d.key);
+          document.getElementById("dayc").innerHTML = d.key;
          })
         .on("mouseover", function(d){ d3.select("#box"+d.key.replace(/ /g,'').replace('[','').replace(']','')).style("opacity", "1");})
         .on("mouseleave", function(d){ d3.select("#box"+d.key.replace(/ /g,'').replace('[','').replace(']','')).style("opacity", "0");})

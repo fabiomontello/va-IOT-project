@@ -12,8 +12,7 @@ function chart1(){
           colors = ["#ffffd9","#edf8b1","#c7e9b4","#7fcdbb","#41b6c4","#1d91c0","#225ea8","#253494","#081d58"], 
           days = ["Fr 01", "Sa 02", "Su 03", "Mo 04", "Tu 05", "We 06", "Th 07"],
           times = ["00:00", "01:00", "02:00", "03:00", "04:00", "05:00", "06:00", "07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00"];
-     
-  var t0 = performance.now();
+  
   d3.csv("data/clean_dataset.csv", function(error, rows) {
 
   var len=rows.length;
@@ -37,12 +36,6 @@ function chart1(){
       y=y+60;
       b+=1;
   }
-  console.log(data);
-
-
-
-  var t1 = performance.now();
-  console.log("Call to doSomething took " + (t1 - t0) + " milliseconds.");
 
           var colorScale = d3.scale.quantile()
               .domain([0, 0.51, d3.max(data, function (d) { return d.value; })])
@@ -56,9 +49,6 @@ function chart1(){
               .attr("preserveAspectRatio", "xMinYMin meet")
               .attr("viewBox", "0 0 "+(width+margin.left+margin.right)+" "+height+"")
               .classed("svg-content-responsive", true)
-              
-            //  .attr("width", width + margin.left + margin.right)
-            //  .attr("height", height + margin.top + margin.bottom)
               .append("g")
               .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
@@ -82,8 +72,6 @@ function chart1(){
                 .style("text-anchor", "middle")
                 .attr("transform", "translate(" + gridSize / 2 + ", -6)")
                 .attr("class", "timeLabel mono axis axis-worktime");
-                //.attr("class", function(d, i) { return ((i >= 7 && i <= 16) ? "timeLabel mono axis axis-worktime" : "timeLabel mono axis"); });
-
 
            // Three function that change the tooltip when user hover / move / leave a cell
            var mouseover = function(d) {
@@ -112,8 +100,6 @@ function chart1(){
               .on("mousemove", mousemove)
               .on("mouseleave", mouseleave)
               .on("click", function(d) {
-                  //alert(d.day);
-                  //alert(d.hour);
                   chart2(d.day,d.hour);
                });
 
@@ -142,5 +128,4 @@ function chart1(){
             .attr("y", height + gridSize);
   });
 }
-
 chart1();
