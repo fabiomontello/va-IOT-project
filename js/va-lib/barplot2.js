@@ -35,6 +35,7 @@ function update(data, day) {
   y.domain([0, d3.max(data, function(d) { return d.value }) ]);
   yAxis.transition().duration(1000).call(d3.axisLeft(y));
 
+
   // Create the u variable
   var u = svg.selectAll("rect")
     .data(data)
@@ -49,11 +50,14 @@ function update(data, day) {
       .attr("height", function(d) { return height - y(0); })
       .attr("fill", "#1C91C0")
       .style("cursor", "pointer")
+
     .transition() // and apply changes to all of them
     .duration(1000)
       .attr("y", function(d) { return y(d.value); })
       .attr("height", function(d) { return height - y(d.value); })
     .delay(function(d,i){ return(i*50)})
+
+  
 
     exists = true
 
@@ -71,8 +75,12 @@ function update(data, day) {
       .attr("height", function(d) { return height - y(d.value); })
     .delay(function(d,i){ return(i*50)})
 
+   
   }
-  
+  /*u.data(data)
+      .append("title")
+        .text(function(d) { return Number((d.value).toFixed(5))+" KW"; });*/
+        d3.selectAll('rect').selectAll('title').remove();
   svg.selectAll("rect")
       .data(data)
       .append("title")
@@ -227,7 +235,6 @@ d3.csv("data/clean_dataset.csv", function(datas) {
        .on("click", function(d){
           svg.selectAll("rect").attr('fill', '#1C91C0');
           svg.selectAll('#rect-'+d.day).attr('fill', '#7FCDBB');
-          
          	get_bar3(device, d.day);
        })
        .append("title").text(function(d) { return Number((d.value).toFixed(5))+" KW"; });
