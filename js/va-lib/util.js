@@ -49,5 +49,8 @@ function back_state(){
 }
 
 function back_state2(){
-    boxpl();
+    document.getElementById("boxplt").style.display="block";
+    document.getElementById("brpplt").style.display="none";
+    document.getElementById("bxm").style.display="none";
+    document.getElementById("brpplt1").innerHTML = "";
 }

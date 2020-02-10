@@ -4,7 +4,6 @@ localStorage.setItem('stat2', 1);
 document.getElementById("boxplt").style.display="block";
 document.getElementById("brpplt").style.display="none";
 document.getElementById("bxm").style.display="none";
-document.getElementById("boxplt").innerHTML = "";
 document.getElementById("brpplt1").innerHTML = "";
 var margin = {top: 40, right: 30, bottom: 30, left: 40},
     width = 1160 - margin.left - margin.right,
@@ -120,7 +119,7 @@ d3.csv("data/clean_dataset.csv", function(error, rows) {
         .style("cursor", "pointer")
         .on("click", function(d) {
           get_bar2(d.key);
-          document.getElementById("dayc").innerHTML = d.key;
+         //document.getElementById("dayc").innerHTML = d.key;
          })
         .on("mouseover", function(d){ d3.select("#box"+d.key.replace(/ /g,'').replace('[','').replace(']','')).style("opacity", "1");})
         .on("mouseleave", function(d){ d3.select("#box"+d.key.replace(/ /g,'').replace('[','').replace(']','')).style("opacity", "0");})
