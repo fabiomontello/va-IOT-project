@@ -86,6 +86,9 @@ d3.csv("data/clean_dataset.csv", function(error, rows) {
     .range([height, 0])
   svg.append("g").call(d3.axisLeft(y))
 
+  //Color scale
+  var color = d3.scaleOrdinal(["#1f77b4", "#aec7e8", "#ff7f0e", "#ffbb78", "#2ca02c", "#98df8a", "#d62728", "#ff9896", "#9467bd", "#c5b0d5", "#8c564b", "#c49c94", "#e377c2", "#f7b6d2", "#7f7f7f", "#c7c7c7", "#bcbd22", "#dbdb8d", "#17becf", "#9edae5"]);
+  
   // Show the main vertical line
   svg
     .selectAll("vertLines")
@@ -113,7 +116,7 @@ d3.csv("data/clean_dataset.csv", function(error, rows) {
         .attr("height", function(d){return(y(d.value.q1)-y(d.value.q3))})
         .attr("width", boxWidth )
         .attr("stroke", "black")
-        .style("fill", "#1d91c0")
+        .style("fill", function(d,i){return color(i)})
         .style("cursor", "pointer")
         .on("click", function(d) {
           get_bar2(d.key);

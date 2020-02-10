@@ -23,6 +23,7 @@ var y = d3.scaleLinear()
 var yAxis = svg.append("g")
   .attr("class", "myYaxis")
 
+var exists = false;
 
 function update(data, day) {
 
@@ -37,18 +38,40 @@ function update(data, day) {
   // Create the u variable
   var u = svg.selectAll("rect")
     .data(data)
-
-  u
+  if(exists == false){
+    u
     .enter()
     .append("rect") // Add a new rect for each new elements
     .merge(u) // get the already existing elements as well
+      .attr("x", function(d) { return x(d.day); })
+      .attr("width", x.bandwidth())
+      .attr("y", function(d) { return y(0); })
+      .attr("height", function(d) { return height - y(0); })
+      .attr("fill", "#1C91C0")
     .transition() // and apply changes to all of them
     .duration(1000)
-      .attr("x", function(d) { return x(d.day); })
       .attr("y", function(d) { return y(d.value); })
-      .attr("width", x.bandwidth())
       .attr("height", function(d) { return height - y(d.value); })
-      .attr("fill", "#1d91c0")
+    .delay(function(d,i){ return(i*50)})
+
+    exists = true
+
+  } else {
+
+    u.enter().append("rect") // Add a new rect for each new elements
+    .merge(u) // get the already existing elements as well
+      .attr("x", function(d) { return x(d.day); })
+      .attr("width", x.bandwidth())
+      // .attr("y", function(d) { return y(0); })
+      // .attr("height", function(d) { return height - y(0); })
+      .attr("fill", "#1C91C0")
+    .transition() // and apply changes to all of them
+    .duration(1000)
+      .attr("y", function(d) { return y(d.value); })
+      .attr("height", function(d) { return height - y(d.value); })
+    .delay(function(d,i){ return(i*50)})
+  }
+
 
   // If less group in the new dataset, I delete the ones not in use anymore
   u
@@ -153,6 +176,7 @@ d3.csv("data/clean_dataset.csv", function(datas) {
   y.domain([0, d3.max(data, function(d) { return d.value }) ]);
   yAxis.transition().duration(1000).call(d3.axisLeft(y));
 
+
   // Create the u variable
   var u = svg.selectAll("rect")
     .data(data)
@@ -161,13 +185,31 @@ d3.csv("data/clean_dataset.csv", function(datas) {
     .enter()
     .append("rect") // Add a new rect for each new elements
     .merge(u) // get the already existing elements as well
+      .attr("x", function(d) { return x(d.day); })
+      .attr("width", x.bandwidth())
+      .attr("y", function(d) { return y(0); })
+      .attr("height", 0)
+      .attr("id", function(d) { return 'rect-'+d.day; })
     .transition() // and apply changes to all of them
     .duration(1000)
-      .attr("x", function(d) { return x(d.day); })
       .attr("y", function(d) { return y(d.value); })
-      .attr("width", x.bandwidth())
       .attr("height", function(d) { return height - y(d.value); })
-      .attr("fill", "#1d91c0")
+      .attr("fill", "#1C91C0")
+    
+  // Create labels inside the rect
+  svg.append('g')
+  .selectAll('text')
+    .data(data)
+    .enter()
+    .append('text')
+      .attr("x", function(d) { return x(d.day) + x.bandwidth()/2; })
+      .attr("y", function(d) { return y(0); })
+      .text((d,i)=>{return d.value.toFixed(3)+" kW"})
+      .attr("text-anchor", "middle")
+      .attr("fill", 'white')
+    .transition() // and apply changes to all of them
+      .duration(1000)
+        .attr("y", function(d) { return y(d.value) + 15 ; })
 
   // If less group in the new dataset, I delete the ones not in use anymore
   u
@@ -178,6 +220,9 @@ d3.csv("data/clean_dataset.csv", function(datas) {
        .data(data)
        .style("cursor", "pointer")
        .on("click", function(d){
+          svg.selectAll("rect").attr('fill', '#1C91C0');
+          svg.selectAll('#rect-'+d.day).attr('fill', '#7FCDBB');
+          
          	get_bar3(device, d.day);
        })
        .append("title").text(function(d) { return Number((d.value).toFixed(5))+" KW"; });
