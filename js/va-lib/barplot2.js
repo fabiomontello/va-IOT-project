@@ -77,12 +77,24 @@ function update(data, day) {
 
    
   }
-  /*u.data(data)
-      .append("title")
-        .text(function(d) { return Number((d.value).toFixed(5))+" KW"; });*/
-        d3.selectAll('rect').selectAll('title').remove();
+ d3.selectAll('rect').selectAll('title').remove();
   svg.selectAll("rect")
       .data(data)
+      .on("mouseover", function (d){ 
+        svg.append("line")
+      .attr("id","linn")
+      .attr("x1", 0 )
+      .attr("x2", width )
+      .attr("y1", y(d.value))
+      .attr("y2", y(d.value))
+      .style("stroke", "rgb(255, 0, 0)")
+      .style("width", 220)
+      .style("height", 6)
+      })
+     // .on("mousemove", function (d){})
+      .on("mouseleave", function (d){
+        d3.selectAll('#linn').remove();
+      })
       .append("title")
         .text(function(d) { return Number((d.value).toFixed(5))+" KW"; });
 
