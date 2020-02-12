@@ -23,7 +23,7 @@
     var color = d3.scaleSequential(d3.interpolateYlGnBu);
                         
     //Read the data
-    d3.csv("data/pca.csv", function(d, i){
+    d3.csv("data/tsne.csv", function(d, i){
        if( i %5 == 0){ // Campionamento ogni 5 minuti 
             return {
                 id: i,
@@ -38,8 +38,8 @@
         // console.log(d3.extent(data, (d)=>{ return d.use}))
         // Add X axis
         var x = d3.scaleLinear()
-            .domain([d3.min(data, function(d) { return d.pc1 -0.2}), 
-                     d3.max(data, function(d) { return d.pc1 +0.2})])
+            .domain([d3.min(data, function(d) { return d.pc1 -2}), 
+                     d3.max(data, function(d) { return d.pc1 +2})])
             .range([ 0, width *0.9]);
 
         var xAxis = scatt.append("g")
@@ -48,8 +48,8 @@
 
         // Add Y axis
         var y = d3.scaleLinear()
-            .domain([d3.min(data, function(d) { return d.pc2 -0.2}), 
-                d3.max(data, function(d) { return d.pc2 +0.2 })])
+            .domain([d3.min(data, function(d) { return d.pc2 -5}), 
+                d3.max(data, function(d) { return d.pc2 +5 })])
             .range([ height, 0]);
 
         var yAxis = scatt.append("g")
@@ -223,7 +223,7 @@
                       "translate(" + ((width*0.9)/2) + " ," + 
                                      (height + margin.top) + ")")
                 .style("text-anchor", "middle")
-                .text("PC1");
+                .text("Dimension 1");
           
         // text label for the y axis
         scatt.append("text")
@@ -232,7 +232,7 @@
             .attr("x",0 - (height / 2))
             .attr("dy", "1em")
             .style("text-anchor", "middle")
-            .text("PC2"); 
+            .text("Dimension 2"); 
         // scatt.selectAll("text")
         //     .data(stops)
         //     .enter().append("text")
