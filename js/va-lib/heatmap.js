@@ -3,6 +3,7 @@ function chart1(){
   document.getElementById("bac").style.display="none";
   document.getElementById("g1").innerHTML="<b class='h5 mb-0 font-weight-bold text-gray-800'>Week:</b> 1-7 January";
   document.getElementById("chart").innerHTML = "";
+  document.getElementById("rad").style.display="none";
   var margin = { top: 20, right: 0, bottom: 100, left: 40 },
           width = 960 - margin.left - margin.right,
           height = 430 - margin.top - margin.bottom,

@@ -5,8 +5,9 @@ function chart2(dd, hh){
     localStorage.setItem('hour', hh);
     document.getElementById("g1").innerHTML="<b class='h5 mb-0 font-weight-bold text-gray-800'>Day:</b> "+dd+" January, <b class='h5 mb-0 font-weight-bold text-gray-800'>Hour:</b> "+hh+":00";
     document.getElementById("bac").style.display="block";
+    document.getElementById("rad").style.display="block";
     document.getElementById("chart").innerHTML = "";
-    var margin = {top: 40, right: 10, bottom: 30, left: 100},
+    var margin = {top: 10, right: 10, bottom: 30, left: 100},
     width = 1160 - margin.left - margin.right,
     height = 500 - margin.top - margin.bottom;
 
@@ -25,9 +26,6 @@ function chart2(dd, hh){
               .attr("preserveAspectRatio", "xMinYMin meet")
               .attr("viewBox", "0 0 "+(width+margin.left+margin.right)+" "+height+"")
               .classed("svg-content-responsive", true)
-              
-            //  .attr("width", width + margin.left + margin.right)
-            //  .attr("height", height + margin.top + margin.bottom)
               .append("g")
               .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
@@ -70,12 +68,9 @@ d3.csv("data/clean_dataset.csv", function(error, datas) {
     d.sales = +d.sales;
   });
 
-  // Scale the range of the data in the domains
   x.domain([0, d3.max(data, function(d){ return d.sales+0.01; })]);
   y.domain(data.map(function(d) { return d.salesperson; }));
-  //y.domain([0, d3.max(data, function(d) { return d.sales; })]);
 
-  // append the rectangles for the bar chart
   svg.selectAll(".bar")
       .data(data)
     .enter().append("rect")
@@ -89,15 +84,6 @@ d3.csv("data/clean_dataset.csv", function(error, datas) {
       })
       .append("title").text(function(d) { return "Value: "+Number((d.sales).toFixed(4))+ "Kw"; });
 
-      svg.append("text")
-        .attr("x", (width / 2))             
-        .attr("y", 0 - (margin.top-30 / 2))
-        .attr("text-anchor", "middle")  
-        .style("font-size", "16px") 
-        .style("text-decoration", "underline")  
-        .text("95% confidence interval");
-      
-  // add the x Axis
   svg.append("g")
       .attr("transform", "translate(0," + height + ")")
       .call(d3.axisBottom(x));
@@ -136,76 +122,126 @@ d3.csv("data/clean_dataset.csv", function(error, datas) {
   var lq=di.length;
 
   var interval=[
-  {mean: getCI(di, lq)[1], ci95_hi: getCI(di, lq)[2], ci95_lo: getCI(di, lq)[0], device: "Dishwasher"},
-  {mean: getCI(f1, lq)[1], ci95_hi: getCI(f1, lq)[2], ci95_lo: getCI(f1, lq)[0], device: "Furnace 1"},
-  {mean: getCI(f2, lq)[1], ci95_hi: getCI(f2, lq)[2], ci95_lo: getCI(f2, lq)[0], device: "Furnace 2"},
-  {mean: getCI(ho, lq)[1], ci95_hi: getCI(ho, lq)[2], ci95_lo: getCI(ho, lq)[0], device: "Home office"},
-  {mean: getCI(fr, lq)[1], ci95_hi: getCI(fr, lq)[2], ci95_lo: getCI(fr, lq)[0], device: "Fridge"},
-  {mean: getCI(wc, lq)[1], ci95_hi: getCI(wc, lq)[2], ci95_lo: getCI(wc, lq)[0], device: "Wine cellar"},
-  {mean: getCI(gd, lq)[1], ci95_hi: getCI(gd, lq)[2], ci95_lo: getCI(gd, lq)[0], device: "Garage door"},
-  {mean: getCI(k1, lq)[1], ci95_hi: getCI(k1, lq)[2], ci95_lo: getCI(k1, lq)[0], device: "Kitchen 12"},
-  {mean: getCI(k2, lq)[1], ci95_hi: getCI(k2, lq)[2], ci95_lo: getCI(k2, lq)[0], device: "Kitchen 14"},
-  {mean: getCI(k3, lq)[1], ci95_hi: getCI(k3, lq)[2], ci95_lo: getCI(k3, lq)[0], device: "Kitchen 38"},
-  {mean: getCI(ba, lq)[1], ci95_hi: getCI(ba, lq)[2], ci95_lo: getCI(ba, lq)[0], device: "Barn"},
-  {mean: getCI(we, lq)[1], ci95_hi: getCI(we, lq)[2], ci95_lo: getCI(we, lq)[0], device: "Well"},
-  {mean: getCI(mi, lq)[1], ci95_hi: getCI(mi, lq)[2], ci95_lo: getCI(mi, lq)[0], device: "Microwave"},
-  {mean: getCI(li, lq)[1], ci95_hi: getCI(li, lq)[2], ci95_lo: getCI(li, lq)[0], device: "Living room"}
+  {mean: getMean(di, lq), device: "Dishwasher"},
+  {mean: getMean(f1, lq), device: "Furnace 1"},
+  {mean: getMean(f2, lq), device: "Furnace 2"},
+  {mean: getMean(ho, lq), device: "Home office"},
+  {mean: getMean(fr, lq), device: "Fridge"},
+  {mean: getMean(wc, lq), device: "Wine cellar"},
+  {mean: getMean(gd, lq), device: "Garage door"},
+  {mean: getMean(k1, lq), device: "Kitchen 12"},
+  {mean: getMean(k2, lq), device: "Kitchen 14"},
+  {mean: getMean(k3, lq), device: "Kitchen 38"},
+  {mean: getMean(ba, lq), device: "Barn"},
+  {mean: getMean(we, lq), device: "Well"},
+  {mean: getMean(mi, lq), device: "Microwave"},
+  {mean: getMean(li, lq), device: "Living room"}
   ]
   
-  console.log(interval);
+
+  var i;
+  var len=datas.length;
+  var di=[];var f1=[];var f2=[];var ho=[];var fr=[];var wc=[];var gd=[];var k1=[];var k2=[];var k3=[];
+  var ba=[];var we=[];var mi=[];var li=[];
+  for (i=0; i<datas.length; i++) {
+    var date = new Date(datas[i]['time']*1000);
+    if(parseInt(date.getDate())==parseInt(dd)){
+
+      di.push(datas[i]['Dishwasher [kW]']);
+      f1.push(datas[i]['Furnace 1 [kW]']);
+      f2.push(datas[i]['Furnace 2 [kW]']);
+      ho.push(datas[i]['Home office [kW]']);
+      fr.push(datas[i]['Fridge [kW]']);
+      wc.push(datas[i]['Wine cellar [kW]']);
+      gd.push(datas[i]['Garage door [kW]']);
+      k1.push(datas[i]['Kitchen 12 [kW]']);
+      k2.push(datas[i]['Kitchen 14 [kW]']);
+      k3.push(datas[i]['Kitchen 38 [kW]']);
+      ba.push(datas[i]['Barn [kW]']);
+      we.push(datas[i]['Well [kW]']);
+      mi.push(datas[i]['Microwave [kW]']);
+      li.push(datas[i]['Living room [kW]']);
+    }
+  }
+
+  var lq=di.length;
+
+  var interval2=[
+  {mean: getMean(di, lq), device: "Dishwasher"},
+  {mean: getMean(f1, lq), device: "Furnace 1"},
+  {mean: getMean(f2, lq), device: "Furnace 2"},
+  {mean: getMean(ho, lq), device: "Home office"},
+  {mean: getMean(fr, lq), device: "Fridge"},
+  {mean: getMean(wc, lq), device: "Wine cellar"},
+  {mean: getMean(gd, lq), device: "Garage door"},
+  {mean: getMean(k1, lq), device: "Kitchen 12"},
+  {mean: getMean(k2, lq), device: "Kitchen 14"},
+  {mean: getMean(k3, lq), device: "Kitchen 38"},
+  {mean: getMean(ba, lq), device: "Barn"},
+  {mean: getMean(we, lq), device: "Well"},
+  {mean: getMean(mi, lq), device: "Microwave"},
+  {mean: getMean(li, lq), device: "Living room"}
+  ]
 
 
-  svg.append("g")
-      .selectAll("myRect")
-      .data(interval)
-      .enter()
-      .append("rect")
+  d3.select("#rad").html("<p style='float:left;''><input type='radio' id='test1' name='radio-group' value='1' checked><label for='test1'>Weekly average for hour</label></p><p><input type='radio' id='test2'  value='2'  name='radio-group'><label for='test2'>Average for day</label></p>");
+
+
+      svg.selectAll("#mmi").remove()
+      svg.append("g")
+        .attr("id","mmi")
+        .selectAll("myRect")
+        .data(interval2)
+        .enter()
+        .append("rect")
         .attr("x", 0)
         .attr("y", function(d) { return y(d.device); })
         .transition().duration(1750).attr("x", function(d) {return x(d.mean); } )
         .attr("width", "3px")
         .attr("height", "28px")
-        .attr("fill", "#228B22")
+        .attr("fill", "#F31526")
         .style("cursor", "pointer")
 
-  svg.append("g")
-      .selectAll("myRect")
-      .data(interval)
-      .enter()
-      .append("rect")
-       // .transition().duration(1550)
+      d3.selectAll("input").on("change", function(){
+      if(this.value==2){
+       // var a=d3.selectAll("#mmi").attr("x");
+       // alert(a);
+      //  alert(d3.select("#mmd1").attr("x"));
+        svg.selectAll("#mmi").remove()
+        svg.append("g")
+        .attr("id","mmd")
+        .selectAll("myRect")
+        .data(interval)
+        .enter()
+        .append("rect")
+        .attr("id","mmdd")
         .attr("x", 0)
         .attr("y", function(d) { return y(d.device); })
-        .transition().duration(1750).attr("x", function(d) {return x(d.ci95_hi); } )
+        .transition().duration(1750).attr("x", function(d) {return x(d.mean); } )
         .attr("width", "3px")
         .attr("height", "28px")
         .attr("fill", "#F31526")
         .style("cursor", "pointer")
-      //.transition() // and apply changes to all of them
-     //.duration(1000)
-     // .transition().duration(750)
-           // .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
-      //.append("title").text(function(d) { return "Upper Bound: "+Number((d.ci95_hi).toFixed(4)) + "Kw"; });
-      
-  svg.append("g")
-      .selectAll("myRect")
-      .data(interval)
-      .enter()
-      .append("rect")
+        .append("title").text(function(d) { return "Weekly average for hour: "+Number((d.mean).toFixed(4))+ "Kw"; });
+      }else{
+       svg.selectAll("#mmd").remove()
+        svg.append("g")
+        .attr("id","mmi")
+        .selectAll("myRect")
+        .data(interval2)
+        .enter()
+        .append("rect")
+        .attr("id","mmii")
         .attr("x", 0)
         .attr("y", function(d) { return y(d.device); })
-        .transition().duration(1750).attr("x", function(d) { 
-          if(d.ci95_lo<0){
-            return x(0);
-          }
-          return x(d.ci95_lo); 
-        })
+        .transition().duration(1750).attr("x", function(d) {return x(d.mean); } )
         .attr("width", "3px")
         .attr("height", "28px")
         .attr("fill", "#F31526")
-      //.style("cursor", "pointer")
-           // .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
-      //.append("title").text(function(d) { return "Lower Bound: "+ Number((d.ci95_lo).toFixed(4)) + "Kw"; });
+        .style("cursor", "pointer")
+        .append("title").text(function(d) { return "Average for day: "+Number((d.mean).toFixed(4))+ "Kw"; });
+      }
+    });
 
  });
 

@@ -8,6 +8,7 @@ function chart3(time, hours, dev){ // m, cl, ch,
     document.getElementById("g1").innerHTML="<b class='h5 mb-0 font-weight-bold text-gray-800'>Day:</b> "+time+" January, <b class='h5 mb-0 font-weight-bold text-gray-800'>Hour:</b> "+hours+":00, <b class='h5 mb-0 font-weight-bold text-gray-800'>Device:</b> "+dev+"";
     document.getElementById("bac").style.display="block";
     document.getElementById("chart").innerHTML = "";
+    document.getElementById("rad").style.display="none";
     var margin = {top: 40, right: 30, bottom: 10, left: 30},
     margin2 = {top: 600, right: 20, bottom: 30, left: 40},
     width =  1200 - margin.left - margin.right,
@@ -99,10 +100,10 @@ function chart3(time, hours, dev){ // m, cl, ch,
           console.log(datas[i][dev]);
         }
       }
-  var c_i = getCI(devv, devv.length) 
+  //var c_i = getCI(devv, devv.length) 
 
   x.domain(d3.extent(data, function(d) { return d.Date }));
-  y.domain([0, d3.max(data, function (d) { if(d.kw>c_i[2]){return d.kw;}else{return c_i[2];} })]);
+  y.domain([0, d3.max(data, function (d) { return d.kw;})]);
   x2.domain(x.domain());
   y2.domain(y.domain());
 
@@ -142,7 +143,7 @@ function chart3(time, hours, dev){ // m, cl, ch,
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
       .call(zoom);
 
-  svg.append("line")
+ /* svg.append("line")
         .attr("x1", 0)
         .attr("x2", width)
         .attr("y1", 0)
@@ -182,7 +183,7 @@ function chart3(time, hours, dev){ // m, cl, ch,
         .attr("text-anchor", "middle")  
         .style("font-size", "16px") 
         .style("text-decoration", "underline")  
-        .text("95% confidence interval");
+        .text("95% confidence interval");*/
  
   });
 
