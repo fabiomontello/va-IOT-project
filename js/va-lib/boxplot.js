@@ -67,7 +67,7 @@ d3.csv("data/clean_dataset.csv", function(error, rows) {
   {key: 'Living room', value:{q1: getCII(li, lung)[1], median: getCII(li, lung)[2], q3: getCII(li, lung)[3], interQuantileRange: (getCII(li, lung)[3]-getCII(li, lung)[1]), min: getCII(li, lung)[0], max: getCII(li, lung)[4]}}
   ];
 
-  localStorage.setItem('global', JSON.stringify(sumstat));
+ // localStorage.setItem('global', JSON.stringify(sumstat));
 
   var x = d3.scaleBand()
     .range([ 0, width ])
@@ -81,7 +81,7 @@ d3.csv("data/clean_dataset.csv", function(error, rows) {
 
   // Show the Y scale
   var y = d3.scaleLinear()
-    .domain([0, 0.15])
+    .domain([0, 0.7])
     .range([height, 0])
   svg.append("g").call(d3.axisLeft(y))
 
@@ -101,7 +101,17 @@ d3.csv("data/clean_dataset.csv", function(error, rows) {
       .attr("stroke", "black")
       .style("stroke-dasharray", ("3, 3"))
       .style("width", 1)
-      .style("opacity", .2);
+      .style("opacity", .2)
+      .style("cursor", "pointer")
+      .on("click", function(d) {
+          get_bar2(d.key);
+         //document.getElementById("dayc").innerHTML = d.key;
+         })
+      .on("mouseover", function(d){ d3.select("#box"+d.key.replace(/ /g,'').replace('[','').replace(']','')).style("opacity", "1");})
+      .on("mouseleave", function(d){ d3.select("#box"+d.key.replace(/ /g,'').replace('[','').replace(']','')).style("opacity", "0");})
+      .append("title").text(function(d) { 
+           return "Max: "+d.value.max+"\nQ3: "+d.value.q3+"\nMedian: "+d.value.median+"\nQ1: "+d.value.q1+"\nMin: "+d.value.min; 
+      });
 
   // rectangle for the main box
   var boxWidth = 50
@@ -124,7 +134,29 @@ d3.csv("data/clean_dataset.csv", function(error, rows) {
         .on("mouseover", function(d){ d3.select("#box"+d.key.replace(/ /g,'').replace('[','').replace(']','')).style("opacity", "1");})
         .on("mouseleave", function(d){ d3.select("#box"+d.key.replace(/ /g,'').replace('[','').replace(']','')).style("opacity", "0");})
         .append("title").text(function(d) { 
-           return "Max: "+d.value.max+"\nHigh: "+d.value.q3+"\nMean: "+d.value.median+"\nLow: "+d.value.q1+"\nMin: "+d.value.min; 
+           return "Max: "+d.value.max+"\nQ3: "+d.value.q3+"\nMedian: "+d.value.median+"\nQ1: "+d.value.q1+"\nMin: "+d.value.min; 
+        });
+
+  svg
+    .selectAll("boxes")
+    .data(sumstat)
+    .enter()
+    .append("rect")
+        .attr("x", function(d){return(x(d.key)-boxWidth/2)})
+        .attr("y", function(d){return(y(0.7))})
+        .attr("height", height)
+        .attr("width", boxWidth )
+        .style("opacity",0)
+        //.style("fill", function(d,i){return color(i)})
+        .style("cursor", "pointer")
+        .on("click", function(d) {
+          get_bar2(d.key);
+         //document.getElementById("dayc").innerHTML = d.key;
+         })
+        .on("mouseover", function(d){ d3.select("#box"+d.key.replace(/ /g,'').replace('[','').replace(']','')).style("opacity", "1");})
+        .on("mouseleave", function(d){ d3.select("#box"+d.key.replace(/ /g,'').replace('[','').replace(']','')).style("opacity", "0");})
+        .append("title").text(function(d) { 
+           return "Max: "+d.value.max+"\nQ3: "+d.value.q3+"\nMedian: "+d.value.median+"\nQ1: "+d.value.q1+"\nMin: "+d.value.min; 
         });
 
   // Show the median
