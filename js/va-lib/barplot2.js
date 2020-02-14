@@ -116,10 +116,11 @@ d3.csv("data/clean_dataset.csv", function(datas) {
 
   var len=datas.length;
   var use_de=[];
+  
+  var dayy=1440*parseInt(dayss.substr(-2));
   for (i=0; i<datas.length; i++) {
-  	var date = new Date(datas[i]['time']*1000);
-  	if((parseInt(date.getDate())==parseInt(dayss.substr(-2)))){
-         use_de.push(datas[i][keys]);
+  	if(i>=(dayy-1440) && i<dayy){
+  		  use_de.push(datas[i][keys]);
   	}
   }
 
