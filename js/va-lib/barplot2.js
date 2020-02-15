@@ -1,6 +1,6 @@
 var margin = {top: 50, right: 30, bottom: 70, left: 90},
     width = 720 - margin.left - margin.right,
-    height = 460 - margin.top - margin.bottom;
+    height = 500 - margin.top - margin.bottom;
 
 var svg = d3.select("#brpplt2")
 
