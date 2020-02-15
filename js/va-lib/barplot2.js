@@ -116,13 +116,21 @@ d3.csv("data/clean_dataset.csv", function(datas) {
 
   var len=datas.length;
   var use_de=[];
+
+  for (i=0; i<datas.length; i++) {
+    var date = new Date(datas[i]['time_europe']);
+    if((parseInt(date.getDate())==parseInt(dayss.substr(-2)))){
+        use_de.push(datas[i][keys]);
+    }
+  }
   
+  /*
   var dayy=1440*parseInt(dayss.substr(-2));
   for (i=0; i<datas.length; i++) {
   	if(i>=(dayy-1440) && i<dayy){
   		  use_de.push(datas[i][keys]);
   	}
-  }
+  }*/
 
   var days=["00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23"];
   var k; var xx=0, yy=60;

@@ -1,5 +1,6 @@
 
 function chart3(time, hours, dev){ // m, cl, ch,
+
     localStorage.setItem('state', 3);
     localStorage.setItem('day', time);
     localStorage.setItem('hour', hours);
@@ -23,9 +24,6 @@ function chart3(time, hours, dev){ // m, cl, ch,
               .attr("preserveAspectRatio", "xMinYMin meet")
               .attr("viewBox", "0 0 "+(width+margin.left+margin.right)+" "+height+"")
               .classed("svg-content-responsive", true)
-              
-            //  .attr("width", width + margin.left + margin.right)
-            //  .attr("height", height + margin.top + margin.bottom)
               .append("g")
               .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
@@ -90,14 +88,13 @@ function chart3(time, hours, dev){ // m, cl, ch,
       var i;
       var l=0;
       for (i=0; i<datas.length; i++) {
-        var date = new Date(datas[i]['time']*1000);
+        var date = new Date(datas[i]['time_europe']);
         if((parseInt(date.getDate())==parseInt(time)) && (parseInt(date.getHours())==parseInt(hours))){
           data[l]={Date: date, kw: datas[i][dev]};
           l=l+1;
         }
         if(parseInt(date.getHours())==parseInt(hours)){
           devv.push(datas[i][dev]);
-          console.log(datas[i][dev]);
         }
       }
   //var c_i = getCI(devv, devv.length) 

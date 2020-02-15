@@ -51,6 +51,7 @@ function back_state2(){
     document.getElementById("brpplt1").innerHTML = "";
 }
 
+//adapted from https://blog.poettner.de/2011/06/09/simple-statistics-with-php/
 function Median(data) {
   return Quartile_50(data);
 }
@@ -69,7 +70,6 @@ function Quartile_75(data) {
 
 function Quartile(data, q) {
   data=Array_Sort_Numbers(data);
-  console.log(data);
   var pos = ((data.length) - 1) * q;
   var base = Math.floor(pos);
   var rest = pos - base;
@@ -86,7 +86,37 @@ function Array_Sort_Numbers(inputarray){
   });
 }
 
+function Array_Sum(t){
+   return t.reduce(function(a, b) { return a + b; }, 0); 
+}
+
+function Array_Average(data) {
+  return Array_Sum(data) / data.length;
+}
+
+function Array_Stdev(tab){
+   var i,j,total = 0, mean = 0, diffSqredArr = [];
+   for(i=0;i<tab.length;i+=1){
+       total+=tab[i];
+   }
+   mean = total/tab.length;
+   for(j=0;j<tab.length;j+=1){
+       diffSqredArr.push(Math.pow((tab[j]-mean),2));
+   }
+   return (Math.sqrt(diffSqredArr.reduce(function(firstEl, nextEl){
+            return firstEl + nextEl;
+          })/tab.length));  
+}
+
+function isFloat(n){
+    return Number(n) === n && n % 1 !== 0;
+}
 
 function getCII(data, len){
-    return [Math.min.apply(Math, data), Quartile_25(data), Quartile_50(data), Quartile_75(data), Math.max.apply(Math, data)];
+   /* var k;
+    for(k=0; k<data.length; k++){
+      console.log(parseFloat(data[k]));
+      //console.log(isFloat(data[k]));
+    }*/
+    return [Math.min.apply(Math, data), parseFloat(Quartile_25(data)), parseFloat(Quartile_50(data)), parseFloat(Quartile_75(data)), Math.max.apply(Math, data)];
 };

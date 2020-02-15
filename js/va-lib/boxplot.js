@@ -48,6 +48,7 @@ d3.csv("data/clean_dataset.csv", function(error, rows) {
       mi.push(rows[i]['Microwave [kW]']);
       li.push(rows[i]['Living room [kW]']);
   }
+
   var lung=di.length;
 
   var sumstat=[
@@ -67,6 +68,8 @@ d3.csv("data/clean_dataset.csv", function(error, rows) {
   {key: 'Living room', value:{q1: getCII(li, lung)[1], median: getCII(li, lung)[2], q3: getCII(li, lung)[3], interQuantileRange: (getCII(li, lung)[3]-getCII(li, lung)[1]), min: getCII(li, lung)[0], max: getCII(li, lung)[4]}}
   ];
 
+
+
  // localStorage.setItem('global', JSON.stringify(sumstat));
 
   var x = d3.scaleBand()
@@ -81,7 +84,7 @@ d3.csv("data/clean_dataset.csv", function(error, rows) {
 
   // Show the Y scale
   var y = d3.scaleLinear()
-    .domain([0, 0.7])
+    .domain([0, 0.8])
     .range([height, 0])
   svg.append("g").call(d3.axisLeft(y))
 

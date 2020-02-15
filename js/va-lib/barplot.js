@@ -1,5 +1,6 @@
 
 function chart2(dd, hh){
+
     localStorage.setItem('state', 2);
     localStorage.setItem('day', dd);
     localStorage.setItem('hour', hh);
@@ -37,7 +38,8 @@ d3.csv("data/clean_dataset.csv", function(error, datas) {
   var di=[];var f1=[];var f2=[];var ho=[];var fr=[];var wc=[];var gd=[];var k1=[];var k2=[];var k3=[];
   var ba=[];var we=[];var mi=[];var li=[];
   for (i=0; i<datas.length; i++) {
-    var date = new Date(datas[i]['time']*1000);
+    var date = new Date(datas[i]['time_europe']);
+
     if((parseInt(date.getDate())==parseInt(dd)) && (parseInt(date.getHours())==parseInt(hh))){
 
       di.push(datas[i]['Dishwasher [kW]']);

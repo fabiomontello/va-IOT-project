@@ -15,6 +15,19 @@ function chart1(){
           times = ["00:00", "01:00", "02:00", "03:00", "04:00", "05:00", "06:00", "07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00"];
   
   d3.csv("data/clean_dataset.csv", function(error, rows) {
+   /*
+
+  //var ds = rows[0]['time_europe'];
+  var dda = "2016-01-08 23:30:59";
+  alert(new Date(dda).getFullYear());
+  alert(new Date(dda).getMonth());
+  alert(new Date(dda).getDate());
+
+
+  alert(new Date(dda).getHours());
+  alert(new Date(dda).getMinutes());
+  alert(new Date(dda).getSeconds());
+*/
 
   var len=rows.length;
   var use=[];
