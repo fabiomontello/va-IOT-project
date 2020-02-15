@@ -27,6 +27,28 @@ var exists = false;
 
 function update(data, day) {
 
+  var xx=[];
+  for (i=0; i<data.length; i++) {
+  	xx.push(data[i]['value']);
+  }
+
+  d3.selectAll('#ttt').remove();
+  svg.append("text")
+      .attr("id","ttt")
+      .attr("y", -30)
+      .attr("x",+40)
+      .attr("dy", "1em")
+      .style("text-anchor", "middle")
+      .text("Mean of hours:"+getMean(xx, xx.length).toFixed(3));
+   d3.selectAll('#ttt2').remove();
+   svg.append("text")
+        .attr("id","ttt2")
+        .attr("x", (width / 2))             
+        .attr("y", 0 - (margin.top-30 / 2))
+        .attr("text-anchor", "middle")  
+        .style("font-size", "16px") 
+        .style("text-decoration", "underline")  
+        .text(function(d) { return day; });
   // Update the X axis
   x.domain(data.map(function(d) { return d.day; }))
   xAxis.call(d3.axisBottom(x))
@@ -35,8 +57,6 @@ function update(data, day) {
   y.domain([0, d3.max(data, function(d) { return d.value }) ]);
   yAxis.transition().duration(1000).call(d3.axisLeft(y));
 
-
-  // Create the u variable
   var u = svg.selectAll("rect")
     .data(data)
   if(exists == false){
@@ -56,8 +76,6 @@ function update(data, day) {
       .attr("y", function(d) { return y(d.value); })
       .attr("height", function(d) { return height - y(d.value); })
     .delay(function(d,i){ return(i*50)})
-
-  
 
     exists = true
 
@@ -104,8 +122,6 @@ function update(data, day) {
     .exit()
     .remove()
 
-    document.getElementById("dayc").innerHTML = "";
-    document.getElementById("dayc").innerHTML = day;
 }
 
 function get_bar3(keys, dayss){
@@ -123,14 +139,6 @@ d3.csv("data/clean_dataset.csv", function(datas) {
         use_de.push(datas[i][keys]);
     }
   }
-  
-  /*
-  var dayy=1440*parseInt(dayss.substr(-2));
-  for (i=0; i<datas.length; i++) {
-  	if(i>=(dayy-1440) && i<dayy){
-  		  use_de.push(datas[i][keys]);
-  	}
-  }*/
 
   var days=["00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23"];
   var k; var xx=0, yy=60;
