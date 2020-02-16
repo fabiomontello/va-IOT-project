@@ -196,6 +196,7 @@ d3.csv("data/clean_dataset.csv", function(error, datas) {
         .data(interval2)
         .enter()
         .append("rect")
+        .attr('class', (d)=>{return 'meanline'+d.device.replace(/[^a-z0-9]/gi,'')})
         .attr("x", 0)
         .attr("y", function(d) { return y(d.device); })
         .transition().duration(1750).attr("x", function(d) {return x(d.mean); } )
@@ -205,43 +206,19 @@ d3.csv("data/clean_dataset.csv", function(error, datas) {
         .style("cursor", "pointer")
 
       d3.selectAll("input").on("change", function(){
+        console.log(interval)
       if(this.value==2){
-       // var a=d3.selectAll("#mmi").attr("x");
-       // alert(a);
-      //  alert(d3.select("#mmd1").attr("x"));
-        svg.selectAll("#mmi").remove()
-        svg.append("g")
-        .attr("id","mmd")
-        .selectAll("myRect")
-        .data(interval)
-        .enter()
-        .append("rect")
-        .attr("id","mmdd")
-        .attr("x", 0)
-        .attr("y", function(d) { return y(d.device); })
-        .transition().duration(1750).attr("x", function(d) {return x(d.mean); } )
-        .attr("width", "3px")
-        .attr("height", "28px")
-        .attr("fill", "#F31526")
-        .style("cursor", "pointer")
-        .append("title").text(function(d) { return "Weekly average for hour: "+Number((d.mean).toFixed(4))+ "Kw"; });
+        interval.forEach(function(d){
+          svg.selectAll('.meanline'+d.device.replace(/[^a-z0-9]/gi,''))
+                .transition().duration(1750)
+                .attr("x", x(d.mean) )
+        })
       }else{
-       svg.selectAll("#mmd").remove()
-        svg.append("g")
-        .attr("id","mmi")
-        .selectAll("myRect")
-        .data(interval2)
-        .enter()
-        .append("rect")
-        .attr("id","mmii")
-        .attr("x", 0)
-        .attr("y", function(d) { return y(d.device); })
-        .transition().duration(1750).attr("x", function(d) {return x(d.mean); } )
-        .attr("width", "3px")
-        .attr("height", "28px")
-        .attr("fill", "#F31526")
-        .style("cursor", "pointer")
-        .append("title").text(function(d) { return "Average for day: "+Number((d.mean).toFixed(4))+ "Kw"; });
+        interval2.forEach(function(d){
+          svg.selectAll('.meanline'+d.device.replace(/[^a-z0-9]/gi,''))
+              .transition().duration(1750)
+                .attr("x", x(d.mean) )
+        })
       }
     });
 

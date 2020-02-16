@@ -74,11 +74,12 @@
         .attr("transform", "translate(" + margin2.left + "," + margin2.top + ")");
 
     var mapDateTag = []
+    var parseTime = d3.timeParse(('%Y-%m-%d %H:%M:%S'));
 
     d3.csv("data/clean_dataset.csv", function(d, i){
         // if( i %300 == 0){ // Campionamento ogni 5 minuti 
             return {
-            date: new Date(parseInt(d.time* 1000)),
+            date: parseTime(d['time_europe']),//new Date(parseInt(d.time* 1000))
             use: parseFloat(d['use [kW]']),
             gen: parseFloat(d['gen [kW]']),
             dishwasher: parseFloat(d['Dishwasher [kW]']),
@@ -99,6 +100,7 @@
         // };
         })
     .then(function(data) {
+        console.log(data)
 
         for(var i= 0; i < data.length; i++){
             mapDateTag[i] = data[i].date.getTime()/1000

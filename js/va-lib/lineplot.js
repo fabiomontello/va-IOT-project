@@ -47,7 +47,7 @@ function chart3(time, hours, dev){ // m, cl, ch,
     .scaleExtent([1, Infinity])
     .translateExtent([[0, 0], [width, height]])
     .extent([[0, 0], [width, height]])
-    .on("zoom", zoomed);
+    // .on("zoom", zoomed);
 
     var line = d3.line()
         .x(function (d) { return x(d.Date); })
@@ -57,13 +57,13 @@ function chart3(time, hours, dev){ // m, cl, ch,
         .x(function (d) { return x2(d.Date); })
         .y(function (d) { return y2(d.kw); });
 
-    var clip = svg.append("defs").append("svg:clipPath")
-        .attr("id", "clip")
-        .append("svg:rect")
-        .attr("width", width)
-        .attr("height", height)
-        .attr("x", 0)
-        .attr("y", 0); 
+    // var clip = svg.append("defs").append("svg:clipPath")
+    //     .attr("id", "clip")
+    //     .append("svg:rect")
+    //     .attr("width", width)
+    //     .attr("height", height)
+    //     .attr("x", 0)
+    //     .attr("y", 0); 
 
     var Line_chart = svg.append("g")
         .attr("class", "focus")
@@ -118,6 +118,31 @@ function chart3(time, hours, dev){ // m, cl, ch,
         .attr("class", "line")
         .attr("d", line);
 
+  var circ = focus.append('g').selectAll('circle')
+        .data(data)
+        .enter()
+        .append('g')
+        .on('mouseover', function(){
+            d3.select(this).select('text').attr('opacity', 1)
+        })
+        .on('mouseout', function(){
+          d3.select(this).select('text').attr('opacity', 0)
+      });
+
+    circ.append('circle')
+          .attr('cx', function (d) { return x(d.Date); })
+          .attr('cy', function (d) { return y(d.kw); } )
+          .attr('r', 4)
+          .attr('fill','steelblue')
+      
+    circ.append('text')
+          .attr('x', function (d) { return x(d.Date); })
+          .attr('y', function (d) { return y(d.kw) - 10; } )
+          .attr('text-anchor', 'middle')
+          .attr('font-size', 15)
+          .text(function (d) { return String(parseFloat(d.kw).toFixed(3)); })
+          .attr('opacity', 0)
+
   context.append("path")
         .datum(data)
         .attr("class", "line")
@@ -133,12 +158,12 @@ function chart3(time, hours, dev){ // m, cl, ch,
       .call(brush)
       .call(brush.move, x.range());
 
-  svg.append("rect")
-      .attr("class", "zoom")
-      .attr("width", width)
-      .attr("height", height)
-      .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
-      .call(zoom);
+  // svg.append("rect")
+  //     .attr("class", "zoom")
+  //     .attr("width", width)
+  //     .attr("height", height)
+  //     .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+  //     .call(zoom);
 
  /* svg.append("line")
         .attr("x1", 0)
