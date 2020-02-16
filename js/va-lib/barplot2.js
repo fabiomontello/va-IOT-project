@@ -117,7 +117,7 @@ function update(data, day) {
         d3.selectAll('#linn').remove();
       })
       .append("title")
-        .text(function(d) { return Number((d.value).toFixed(5))+" KW"; });
+        .text(function(d) { return Number((d.value).toFixed(3))+" KW"; });
 
   u
     .exit()
@@ -137,7 +137,7 @@ d3.csv("data/clean_dataset.csv", function(datas) {
   for (i=0; i<datas.length; i++) {
     var date = new Date(datas[i]['time_europe']);
     if((parseInt(date.getDate())==parseInt(dayss.substr(-2)))){
-        use_de.push(datas[i][keys]);
+        use_de.push(Number(parseFloat(datas[i][keys])).toFixed(3));
     }
   }
 
@@ -198,7 +198,7 @@ d3.csv("data/clean_dataset.csv", function(datas) {
   var len=datas.length;
   var use_de=[];
   for (i=0; i<datas.length; i++) {
-     use_de.push(datas[i][device]);
+     use_de.push(Number(parseFloat(datas[i][device])).toFixed(3));
   }
 
   var days=["Fr_01", "Sa_02", "Su_03", "Mo_04", "Tu_05", "We_06", "Th_07"];
@@ -270,7 +270,7 @@ d3.csv("data/clean_dataset.csv", function(datas) {
           svg.selectAll('#rect-'+d.day).attr('fill', '#7FCDBB');
          	get_bar3(device, d.day);
        })
-       .append("title").text(function(d) { return Number((d.value).toFixed(5))+" KW"; });
+       .append("title").text(function(d) { return Number((d.value).toFixed(3))+" KW"; });
 
     svg.append("text")
         .attr("x", (width / 2))             

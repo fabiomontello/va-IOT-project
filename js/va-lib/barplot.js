@@ -42,20 +42,20 @@ d3.csv("data/clean_dataset.csv", function(error, datas) {
 
     if((parseInt(date.getDate())==parseInt(dd)) && (parseInt(date.getHours())==parseInt(hh))){
 
-      di.push(datas[i]['Dishwasher [kW]']);
-      f1.push(datas[i]['Furnace 1 [kW]']);
-      f2.push(datas[i]['Furnace 2 [kW]']);
-      ho.push(datas[i]['Home office [kW]']);
-      fr.push(datas[i]['Fridge [kW]']);
-      wc.push(datas[i]['Wine cellar [kW]']);
-      gd.push(datas[i]['Garage door [kW]']);
-      k1.push(datas[i]['Kitchen 12 [kW]']);
-      k2.push(datas[i]['Kitchen 14 [kW]']);
-      k3.push(datas[i]['Kitchen 38 [kW]']);
-      ba.push(datas[i]['Barn [kW]']);
-      we.push(datas[i]['Well [kW]']);
-      mi.push(datas[i]['Microwave [kW]']);
-      li.push(datas[i]['Living room [kW]']);
+      di.push(Number(parseFloat(datas[i]['Dishwasher [kW]']).toFixed(3)));
+      f1.push(Number(parseFloat(datas[i]['Furnace 1 [kW]']).toFixed(3)));
+      f2.push(Number(parseFloat(datas[i]['Furnace 2 [kW]']).toFixed(3)));
+      ho.push(Number(parseFloat(datas[i]['Home office [kW]']).toFixed(3)));
+      fr.push(Number(parseFloat(datas[i]['Fridge [kW]']).toFixed(3)));
+      wc.push(Number(parseFloat(datas[i]['Wine cellar [kW]']).toFixed(3)));
+      gd.push(Number(parseFloat(datas[i]['Garage door [kW]']).toFixed(3)));
+      k1.push(Number(parseFloat(datas[i]['Kitchen 12 [kW]']).toFixed(3)));
+      k2.push(Number(parseFloat(datas[i]['Kitchen 14 [kW]']).toFixed(3)));
+      k3.push(Number(parseFloat(datas[i]['Kitchen 38 [kW]']).toFixed(3)));
+      ba.push(Number(parseFloat(datas[i]['Barn [kW]']).toFixed(3)));
+      we.push(Number(parseFloat(datas[i]['Well [kW]']).toFixed(3)));
+      mi.push(Number(parseFloat(datas[i]['Microwave [kW]']).toFixed(3)));
+      li.push(Number(parseFloat(datas[i]['Living room [kW]']).toFixed(3)));
     }
   }
 
@@ -84,7 +84,7 @@ d3.csv("data/clean_dataset.csv", function(error, datas) {
       .on("click", function(d) {
           chart3(dd, hh, d.salesperson+" [kW]");
       })
-      .append("title").text(function(d) { return "Value: "+Number((d.sales).toFixed(4))+ "Kw"; });
+      .append("title").text(function(d) { return "Value: "+Number((d.sales).toFixed(3))+ "Kw"; });
 
 
   var xAxis3 = d3.axisBottom(x).ticks(7).tickFormat(function (d) {  return d+" kW"; });
@@ -106,20 +106,20 @@ d3.csv("data/clean_dataset.csv", function(error, datas) {
     var date = new Date(datas[i]['time']*1000);
     if(parseInt(date.getHours())==parseInt(hh)){
 
-      di.push(datas[i]['Dishwasher [kW]']);
-      f1.push(datas[i]['Furnace 1 [kW]']);
-      f2.push(datas[i]['Furnace 2 [kW]']);
-      ho.push(datas[i]['Home office [kW]']);
-      fr.push(datas[i]['Fridge [kW]']);
-      wc.push(datas[i]['Wine cellar [kW]']);
-      gd.push(datas[i]['Garage door [kW]']);
-      k1.push(datas[i]['Kitchen 12 [kW]']);
-      k2.push(datas[i]['Kitchen 14 [kW]']);
-      k3.push(datas[i]['Kitchen 38 [kW]']);
-      ba.push(datas[i]['Barn [kW]']);
-      we.push(datas[i]['Well [kW]']);
-      mi.push(datas[i]['Microwave [kW]']);
-      li.push(datas[i]['Living room [kW]']);
+      di.push(Number(parseFloat(datas[i]['Dishwasher [kW]']).toFixed(3)));
+      f1.push(Number(parseFloat(datas[i]['Furnace 1 [kW]']).toFixed(3)));
+      f2.push(Number(parseFloat(datas[i]['Furnace 2 [kW]']).toFixed(3)));
+      ho.push(Number(parseFloat(datas[i]['Home office [kW]']).toFixed(3)));
+      fr.push(Number(parseFloat(datas[i]['Fridge [kW]']).toFixed(3)));
+      wc.push(Number(parseFloat(datas[i]['Wine cellar [kW]']).toFixed(3)));
+      gd.push(Number(parseFloat(datas[i]['Garage door [kW]']).toFixed(3)));
+      k1.push(Number(parseFloat(datas[i]['Kitchen 12 [kW]']).toFixed(3)));
+      k2.push(Number(parseFloat(datas[i]['Kitchen 14 [kW]']).toFixed(3)));
+      k3.push(Number(parseFloat(datas[i]['Kitchen 38 [kW]']).toFixed(3)));
+      ba.push(Number(parseFloat(datas[i]['Barn [kW]']).toFixed(3)));
+      we.push(Number(parseFloat(datas[i]['Well [kW]']).toFixed(3)));
+      mi.push(Number(parseFloat(datas[i]['Microwave [kW]']).toFixed(3)));
+      li.push(Number(parseFloat(datas[i]['Living room [kW]']).toFixed(3)));
     }
   }
 
@@ -151,20 +151,20 @@ d3.csv("data/clean_dataset.csv", function(error, datas) {
     var date = new Date(datas[i]['time']*1000);
     if(parseInt(date.getDate())==parseInt(dd)){
 
-      di.push(datas[i]['Dishwasher [kW]']);
-      f1.push(datas[i]['Furnace 1 [kW]']);
-      f2.push(datas[i]['Furnace 2 [kW]']);
-      ho.push(datas[i]['Home office [kW]']);
-      fr.push(datas[i]['Fridge [kW]']);
-      wc.push(datas[i]['Wine cellar [kW]']);
-      gd.push(datas[i]['Garage door [kW]']);
-      k1.push(datas[i]['Kitchen 12 [kW]']);
-      k2.push(datas[i]['Kitchen 14 [kW]']);
-      k3.push(datas[i]['Kitchen 38 [kW]']);
-      ba.push(datas[i]['Barn [kW]']);
-      we.push(datas[i]['Well [kW]']);
-      mi.push(datas[i]['Microwave [kW]']);
-      li.push(datas[i]['Living room [kW]']);
+      di.push(Number(parseFloat(datas[i]['Dishwasher [kW]']).toFixed(3)));
+      f1.push(Number(parseFloat(datas[i]['Furnace 1 [kW]']).toFixed(3)));
+      f2.push(Number(parseFloat(datas[i]['Furnace 2 [kW]']).toFixed(3)));
+      ho.push(Number(parseFloat(datas[i]['Home office [kW]']).toFixed(3)));
+      fr.push(Number(parseFloat(datas[i]['Fridge [kW]']).toFixed(3)));
+      wc.push(Number(parseFloat(datas[i]['Wine cellar [kW]']).toFixed(3)));
+      gd.push(Number(parseFloat(datas[i]['Garage door [kW]']).toFixed(3)));
+      k1.push(Number(parseFloat(datas[i]['Kitchen 12 [kW]']).toFixed(3)));
+      k2.push(Number(parseFloat(datas[i]['Kitchen 14 [kW]']).toFixed(3)));
+      k3.push(Number(parseFloat(datas[i]['Kitchen 38 [kW]']).toFixed(3)));
+      ba.push(Number(parseFloat(datas[i]['Barn [kW]']).toFixed(3)));
+      we.push(Number(parseFloat(datas[i]['Well [kW]']).toFixed(3)));
+      mi.push(Number(parseFloat(datas[i]['Microwave [kW]']).toFixed(3)));
+      li.push(Number(parseFloat(datas[i]['Living room [kW]']).toFixed(3)));
     }
   }
 

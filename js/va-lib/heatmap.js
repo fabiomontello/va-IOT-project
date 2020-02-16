@@ -19,7 +19,7 @@ function chart1(){
   var len=rows.length;
   var use=[];
   for (i=0; i<rows.length; i++) {
-     use.push(rows[i]['use [kW]']);
+     use.push(Number(parseFloat(rows[i]['use [kW]'])).toFixed(3));
   }
 
 
@@ -107,7 +107,7 @@ function chart1(){
           heatMap.transition().duration(3000)
               .style("fill", function(d) { return colorScale(d.value); });
 
-          heatMap.append("title").text(function(d) { return Number((d.value).toFixed(4))+" KW"; });
+          heatMap.append("title").text(function(d) { return Number((d.value).toFixed(3))+" KW"; });
               
           var legend = svg.selectAll(".legend")
               .data([0].concat(colorScale.quantiles()), function(d) { return d; })

@@ -72,23 +72,19 @@ function chart3(time, hours, dev){
 
   d3.csv("data/clean_dataset.csv", function (error, datas) {
       var data=[];
-      var devv=[];
-
       var i;
       var l=0;
       for (i=0; i<datas.length; i++) {
         var date = new Date(datas[i]['time_europe']);
         if((parseInt(date.getDate())==parseInt(time)) && (parseInt(date.getHours())==parseInt(hours))){
-          data[l]={Date: date, kw: datas[i][dev]};
+          data[l]={Date: date, kw: Number(parseFloat(datas[i][dev])).toFixed(3)};
           l=l+1;
         }
-        if(parseInt(date.getHours())==parseInt(hours)){
-          devv.push(datas[i][dev]);
-        }
       }
+      console.log(data);
 
-  x.domain(d3.extent(data, function(d) { return d.Date }));
-  y.domain([0, d3.max(data, function (d) { return d.kw;})]);
+  x.domain(d3.extent(data, function(d) { return d.Date; }));
+  y.domain([0, d3.max(data, function (d) { return d.kw; })]);
   x2.domain(x.domain());
   y2.domain(y.domain());
 
@@ -107,16 +103,16 @@ function chart3(time, hours, dev){
         .attr("class", "line")
         .attr("d", line);
 
-  var circ = focus.append('g').selectAll('circle')
+  var circ = focus.append('g').selectAll('circle') 
         .data(data)
         .enter()
-        .append('g')
+        .append('g') 
         .on('mouseover', function(){
-            d3.select(this).select('text').attr('opacity', 1)
+            d3.select(this).selectAll('text').attr('opacity', 1)
             d3.select(this).select('line').attr('opacity', 1)
         })
         .on('mouseout', function(){
-            d3.select(this).select('text').attr('opacity', 0)
+            d3.select(this).selectAll('text').attr('opacity', 0)
             d3.select(this).select('line').attr('opacity', 0)
       });
 
@@ -128,10 +124,18 @@ function chart3(time, hours, dev){
       
     circ.append('text')
           .attr('x', function (d) { return x(d.Date); })
+          .attr('y', function (d) { return y(d.kw) - 25; } )
+          .attr('text-anchor', 'middle')
+          .attr('font-size', 15)
+          .text(function (d) { return String("H: "+ new Date(d.Date).getHours()+":"+ new Date(d.Date).getMinutes()); })
+          .attr('opacity', 0)
+
+     circ.append('text')
+          .attr('x', function (d) { return x(d.Date); })
           .attr('y', function (d) { return y(d.kw) - 10; } )
           .attr('text-anchor', 'middle')
           .attr('font-size', 15)
-          .text(function (d) { return String(parseFloat(d.kw).toFixed(3)); })
+          .text(function (d) { return String("Kw: "+parseFloat(d.kw).toFixed(3)); })
           .attr('opacity', 0)
 
     circ.append("line")
@@ -162,12 +166,12 @@ function chart3(time, hours, dev){
       .call(brush)
       .call(brush.move, x.range());
 
-  // svg.append("rect")
-  //     .attr("class", "zoom")
-  //     .attr("width", width)
-  //     .attr("height", height)
-  //     .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
-  //     .call(zoom);
+   /*svg.append("rect")
+       .attr("class", "zoom")
+       .attr("width", width)
+       .attr("height", height)
+       .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+       .call(zoom);*/
 
  /* svg.append("line")
         .attr("x1", 0)
