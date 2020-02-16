@@ -36,7 +36,7 @@ function chart3(time, hours, dev){
     y = d3.scaleLinear().range([height, 0]),
     y2 = d3.scaleLinear().range([height2, 0]);
 
-    var xAxis = d3.axisBottom(x),
+    var xAxis = d3.axisBottom(x).tickFormat(d3.timeFormat("%H:%M")),
     xAxis2 = d3.axisBottom(x2),
     yAxis = d3.axisLeft(y);
 
