@@ -21,8 +21,8 @@
         y = d3.scaleLinear().range([height, 0]),
         y2 = d3.scaleLinear().range([height2, 0]);
 
-    var xAxis = d3.axisBottom(x),
-        xAxis2 = d3.axisBottom(x2),
+    var xAxis = d3.axisBottom(x).tickFormat(d3.timeFormat("%H:%M")),
+        xAxis2 = d3.axisBottom(x2).ticks(7).tickFormat(d3.timeFormat("%a %d %b")),
         yAxis = d3.axisLeft(y).ticks(7).tickFormat(function (d) {
                                                         return d+" kW";
                                                     });
