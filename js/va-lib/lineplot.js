@@ -1,4 +1,6 @@
-
+function clean_date(n) {
+    return (n < 10 ? '0' : '') + n;
+}
 function chart3(time, hours, dev){
 
     localStorage.setItem('state', 3);
@@ -127,7 +129,7 @@ function chart3(time, hours, dev){
           .attr('y', function (d) { return y(d.kw) - 25; } )
           .attr('text-anchor', 'middle')
           .attr('font-size', 15)
-          .text(function (d) { return String("H: "+ new Date(d.Date).getHours()+":"+ new Date(d.Date).getMinutes()); })
+          .text(function (d) { return String("Time: "+ clean_date(new Date(d.Date).getHours())+":"+ clean_date(new Date(d.Date).getMinutes())); })
           .attr('opacity', 0)
 
      circ.append('text')
