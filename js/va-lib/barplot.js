@@ -4,7 +4,7 @@ function chart2(dd, hh){
     localStorage.setItem('state', 2);
     localStorage.setItem('day', dd);
     localStorage.setItem('hour', hh);
-    document.getElementById("g1").innerHTML="<b class='h5 mb-0 font-weight-bold text-gray-800'>Day:</b> "+dd+" January, <b class='h5 mb-0 font-weight-bold text-gray-800'>Hour:</b> "+hh+":00";
+    document.getElementById("g1").innerHTML="<b class='h5 mb-0 font-weight-bold text-gray-800'>Day:</b> "+dd+" January<b class='h5 mb-0 font-weight-bold text-gray-800'>, Hour:</b> "+hh+":00";
     document.getElementById("bac").style.display="block";
     document.getElementById("rad").style.display="block";
     document.getElementById("chart").innerHTML = "";
@@ -86,9 +86,11 @@ d3.csv("data/clean_dataset.csv", function(error, datas) {
       })
       .append("title").text(function(d) { return "Value: "+Number((d.sales).toFixed(4))+ "Kw"; });
 
+
+  var xAxis3 = d3.axisBottom(x).ticks(7).tickFormat(function (d) {  return d+" kW"; });
   svg.append("g")
       .attr("transform", "translate(0," + height + ")")
-      .call(d3.axisBottom(x));
+      .call(xAxis3);
 
   // add the y Axis
   svg.append("g")
@@ -186,7 +188,7 @@ d3.csv("data/clean_dataset.csv", function(error, datas) {
   ]
 
 
-  d3.select("#rad").html("<p style='float:left;''><input type='radio' id='test1' name='radio-group' value='1' checked><label for='test1'>Weekly average for hour</label></p><p><input type='radio' id='test2'  value='2'  name='radio-group'><label for='test2'>Average for day</label></p>");
+  d3.select("#rad").html("<p style='float:left;''><input type='radio' id='test1' name='radio-group' value='1' checked><label style='margin-left:3px;' for='test1'>Weekly average for hour</label></p><p><input type='radio' id='test2'  value='2'  name='radio-group'><label for='test2' style='margin-left:3px;'>Average for day</label></p>");
 
 
       svg.selectAll("#mmi").remove()

@@ -5,7 +5,7 @@ document.getElementById("boxplt").style.display="block";
 document.getElementById("brpplt").style.display="none";
 document.getElementById("bxm").style.display="none";
 document.getElementById("brpplt1").innerHTML = "";
-var margin = {top: 40, right: 30, bottom: 30, left: 40},
+var margin = {top: 40, right: 30, bottom: 30, left: 43},
     width = 1160 - margin.left - margin.right,
     height = 600 - margin.top - margin.bottom;
 
@@ -82,11 +82,11 @@ d3.csv("data/clean_dataset.csv", function(error, rows) {
     .call(d3.axisBottom(x))
 
 
-  // Show the Y scale
   var y = d3.scaleLinear()
-    .domain([0, 0.8])
+    .domain([0,0.8])
     .range([height, 0])
-  svg.append("g").call(d3.axisLeft(y))
+  var yAxis = d3.axisLeft(y).ticks(7).tickFormat(function (d) {  return d+" kW"; });
+  svg.append("g").call(yAxis)
 
   //Color scale
   var color = d3.scaleOrdinal(["#1f77b4", "#aec7e8", "#ff7f0e", "#ffbb78", "#2ca02c", "#98df8a", "#d62728", "#ff9896", "#9467bd", "#c5b0d5", "#8c564b", "#c49c94", "#e377c2", "#f7b6d2", "#7f7f7f", "#c7c7c7", "#bcbd22", "#dbdb8d", "#17becf", "#9edae5"]);

@@ -54,8 +54,9 @@ function update(data, day) {
   xAxis.call(d3.axisBottom(x))
 
   // Update the Y axis
-  y.domain([0, d3.max(data, function(d) { return d.value }) ]);
-  yAxis.transition().duration(1000).call(d3.axisLeft(y));
+  y.domain([0, d3.max(data, function(d) { return d.value; }) ]);
+  var yAxis2 = d3.axisLeft(y).ticks(7).tickFormat(function (d) {  return d+" kW"; });
+  yAxis.transition().duration(1000).call(yAxis2);
 
   var u = svg.selectAll("rect")
     .data(data)
@@ -216,8 +217,9 @@ d3.csv("data/clean_dataset.csv", function(datas) {
   xAxis.call(d3.axisBottom(x))
 
   // Update the Y axis
-  y.domain([0, d3.max(data, function(d) { return d.value }) ]);
-  yAxis.transition().duration(1000).call(d3.axisLeft(y));
+  y.domain([0, d3.max(data, function(d) { return d.value; }) ]);
+  var yAxis3 = d3.axisLeft(y).ticks(7).tickFormat(function (d) {  return d+" kW"; });
+  yAxis.transition().duration(1000).call(yAxis3);
 
 
   // Create the u variable

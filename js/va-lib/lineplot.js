@@ -1,16 +1,16 @@
 
-function chart3(time, hours, dev){ // m, cl, ch,
+function chart3(time, hours, dev){
 
     localStorage.setItem('state', 3);
     localStorage.setItem('day', time);
     localStorage.setItem('hour', hours);
     localStorage.setItem('dev', dev);
 
-    document.getElementById("g1").innerHTML="<b class='h5 mb-0 font-weight-bold text-gray-800'>Day:</b> "+time+" January, <b class='h5 mb-0 font-weight-bold text-gray-800'>Hour:</b> "+hours+":00, <b class='h5 mb-0 font-weight-bold text-gray-800'>Device:</b> "+dev+"";
+    document.getElementById("g1").innerHTML="<b class='h5 mb-0 font-weight-bold text-gray-800'>Day:</b> "+time+" January<b class='h5 mb-0 font-weight-bold text-gray-800'>, Hour:</b> "+hours+":00<b class='h5 mb-0 font-weight-bold text-gray-800'>, Device:</b> "+dev+"";
     document.getElementById("bac").style.display="block";
     document.getElementById("chart").innerHTML = "";
     document.getElementById("rad").style.display="none";
-    var margin = {top: 40, right: 30, bottom: 10, left: 30},
+    var margin = {top: 20, right: 30, bottom: 10, left: 30},
     margin2 = {top: 600, right: 20, bottom: 30, left: 40},
     width =  1200 - margin.left - margin.right,
     height = 400- margin.top - margin.bottom;
@@ -27,7 +27,6 @@ function chart3(time, hours, dev){ // m, cl, ch,
               .append("g")
               .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-      
     var parseDate = d3.timeParse("%m/%d/%Y %H:%M");
 
     var x = d3.scaleTime().range([0, width]),
@@ -57,14 +56,6 @@ function chart3(time, hours, dev){ // m, cl, ch,
         .x(function (d) { return x2(d.Date); })
         .y(function (d) { return y2(d.kw); });
 
-    // var clip = svg.append("defs").append("svg:clipPath")
-    //     .attr("id", "clip")
-    //     .append("svg:rect")
-    //     .attr("width", width)
-    //     .attr("height", height)
-    //     .attr("x", 0)
-    //     .attr("y", 0); 
-
     var Line_chart = svg.append("g")
         .attr("class", "focus")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
@@ -78,8 +69,6 @@ function chart3(time, hours, dev){ // m, cl, ch,
     var context = svg.append("g")
         .attr("class", "context")
         .attr("transform", "translate(" + margin2.left + "," + margin2.top+50 + ")");
-
-
 
   d3.csv("data/clean_dataset.csv", function (error, datas) {
       var data=[];
@@ -97,7 +86,6 @@ function chart3(time, hours, dev){ // m, cl, ch,
           devv.push(datas[i][dev]);
         }
       }
-  //var c_i = getCI(devv, devv.length) 
 
   x.domain(d3.extent(data, function(d) { return d.Date }));
   y.domain([0, d3.max(data, function (d) { return d.kw;})]);
@@ -109,9 +97,10 @@ function chart3(time, hours, dev){ // m, cl, ch,
         .attr("transform", "translate(0," + height + ")")
         .call(xAxis);
 
+  var yAxis3 = d3.axisLeft(y).ticks(7).tickFormat(function (d) {  return d+" kW"; });
   focus.append("g")
         .attr("class", "axis axis--y")
-        .call(yAxis);
+        .call(yAxis3);
 
   Line_chart.append("path")
         .datum(data)
@@ -124,9 +113,11 @@ function chart3(time, hours, dev){ // m, cl, ch,
         .append('g')
         .on('mouseover', function(){
             d3.select(this).select('text').attr('opacity', 1)
+            d3.select(this).select('line').attr('opacity', 1)
         })
         .on('mouseout', function(){
-          d3.select(this).select('text').attr('opacity', 0)
+            d3.select(this).select('text').attr('opacity', 0)
+            d3.select(this).select('line').attr('opacity', 0)
       });
 
     circ.append('circle')
@@ -142,6 +133,19 @@ function chart3(time, hours, dev){ // m, cl, ch,
           .attr('font-size', 15)
           .text(function (d) { return String(parseFloat(d.kw).toFixed(3)); })
           .attr('opacity', 0)
+
+    circ.append("line")
+        .attr("x1", 0)
+        .attr("x2", width)
+        .attr("y1", function(d) {return y(d.kw);})
+        .attr("y2", function(d) {return y(d.kw);})
+        .transition().duration(1750)
+        .attr("y1", function(d) {return y(d.kw);})
+        .attr("y2", function(d) {return y(d.kw);})
+        //.attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+        .attr('stroke-dasharray', '5,5')
+        .style("stroke", "#7FCDBB")
+        .attr('opacity', 0);
 
   context.append("path")
         .datum(data)

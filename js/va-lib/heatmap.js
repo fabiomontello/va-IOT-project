@@ -1,7 +1,7 @@
 function chart1(){
   localStorage.setItem('state', 1);
   document.getElementById("bac").style.display="none";
-  document.getElementById("g1").innerHTML="<b class='h5 mb-0 font-weight-bold text-gray-800'>Week:</b> 1-7 January";
+  document.getElementById("g1").innerHTML="<b class='h5 mb-0 font-weight-bold text-gray-800'>Week:</b> 2016, 1 January - 7 January";
   document.getElementById("chart").innerHTML = "";
   document.getElementById("rad").style.display="none";
   var margin = { top: 20, right: 0, bottom: 100, left: 40 },
@@ -10,25 +10,12 @@ function chart1(){
           gridSize = Math.floor(width / 24),
           legendElementWidth = gridSize*2,
           buckets = 9,
-          colors = ["#ffffd9","#edf8b1","#c7e9b4","#7fcdbb","#41b6c4","#1d91c0","#225ea8","#253494","#081d58"], 
+          colors = ["#fffff0","#FFF8C6","#c7e9b4","#7fcdbb","#41b6c4","#1d91c0","#225ea8","#253494","#081d58"], 
           days = ["Fr 01", "Sa 02", "Su 03", "Mo 04", "Tu 05", "We 06", "Th 07"],
           times = ["00:00", "01:00", "02:00", "03:00", "04:00", "05:00", "06:00", "07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00"];
   
   d3.csv("data/clean_dataset.csv", function(error, rows) {
-   /*
-
-  //var ds = rows[0]['time_europe'];
-  var dda = "2016-01-08 23:30:59";
-  alert(new Date(dda).getFullYear());
-  alert(new Date(dda).getMonth());
-  alert(new Date(dda).getDate());
-
-
-  alert(new Date(dda).getHours());
-  alert(new Date(dda).getMinutes());
-  alert(new Date(dda).getSeconds());
-*/
-
+  	
   var len=rows.length;
   var use=[];
   for (i=0; i<rows.length; i++) {
@@ -120,7 +107,7 @@ function chart1(){
           heatMap.transition().duration(3000)
               .style("fill", function(d) { return colorScale(d.value); });
 
-          heatMap.append("title").text(function(d) { return Number((d.value).toFixed(5))+" KW"; });
+          heatMap.append("title").text(function(d) { return Number((d.value).toFixed(4))+" KW"; });
               
           var legend = svg.selectAll(".legend")
               .data([0].concat(colorScale.quantiles()), function(d) { return d; })
