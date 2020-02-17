@@ -206,7 +206,6 @@ d3.csv("data/clean_dataset.csv", function(error, datas) {
         .attr("height", "28px")
         .attr("fill", "#F31526")
         .style("cursor", "pointer")
-        .append("title").text(function(d) { return Number((d.mean).toFixed(3))+ " KW"; });
 
       d3.selectAll("input").on("change", function(){
         console.log(interval)
