@@ -84,7 +84,7 @@ d3.csv("data/clean_dataset.csv", function(error, datas) {
       .on("click", function(d) {
           chart3(dd, hh, d.salesperson+" [kW]");
       })
-      .append("title").text(function(d) { return "Value: "+Number((d.sales).toFixed(3))+ "Kw"; });
+      .append("title").text(function(d) { return Number((d.sales).toFixed(3))+ " KW"; });
 
 
   var xAxis3 = d3.axisBottom(x).ticks(7).tickFormat(function (d) {  return d+" kW"; });
@@ -206,6 +206,7 @@ d3.csv("data/clean_dataset.csv", function(error, datas) {
         .attr("height", "28px")
         .attr("fill", "#F31526")
         .style("cursor", "pointer")
+        .append("title").text(function(d) { return Number((d.mean).toFixed(3))+ " KW"; });
 
       d3.selectAll("input").on("change", function(){
         console.log(interval)
