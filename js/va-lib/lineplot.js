@@ -8,7 +8,7 @@ function chart3(time, hours, dev){
     localStorage.setItem('hour', hours);
     localStorage.setItem('dev', dev);
 
-    document.getElementById("g1").innerHTML="<b class='h5 mb-0 font-weight-bold text-gray-800'>Day:</b> "+time+" January<b class='h5 mb-0 font-weight-bold text-gray-800'>, Hour:</b> "+hours+":00<b class='h5 mb-0 font-weight-bold text-gray-800'>, Device:</b> "+dev+"";
+    document.getElementById("g1").innerHTML="<b class='h5 mb-0 font-weight-bold text-gray-800'>Day:</b> "+time+" January<b class='h5 mb-0 font-weight-bold text-gray-800'>, Hour:</b> "+hours+":00<b class='h5 mb-0 font-weight-bold text-gray-800'>, Device:</b> "+dev.slice(0,-4)+"";
     document.getElementById("bac").style.display="block";
     document.getElementById("chart").innerHTML = "";
     document.getElementById("rad").style.display="none";
