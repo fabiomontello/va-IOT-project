@@ -188,7 +188,7 @@ d3.csv("data/clean_dataset.csv", function(error, datas) {
   ]
 
 
-  d3.select("#rad").html("<p style='float:left;''><input type='radio' id='test1' name='radio-group' value='1' checked><label style='margin-left:3px;' for='test1'>Weekly average for hour</label></p><p><input type='radio' id='test2'  value='2'  name='radio-group'><label for='test2' style='margin-left:3px;'>Average for day</label></p>");
+  d3.select("#rad").html("<p style='float:left;''><input type='radio' id='test1' name='radio-group' value='1' checked><label style='margin-left:3px;' for='test1'>Weekly average by hour</label></p><p><input type='radio' id='test2'  value='2'  name='radio-group'><label for='test2' style='margin-left:3px;'>Average by day</label></p>");
 
 
       svg.selectAll("#mmi").remove()
