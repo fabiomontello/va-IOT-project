@@ -39,7 +39,7 @@ function update(data, day) {
       .attr("x",+40)
       .attr("dy", "1em")
       .style("text-anchor", "middle")
-      .text("Mean of hours:"+getMean(xx, xx.length).toFixed(3));
+      .text("Average hours:"+getMean(xx, xx.length).toFixed(3));
    d3.selectAll('#ttt2').remove();
    svg.append("text")
         .attr("id","ttt2")
