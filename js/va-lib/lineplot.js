@@ -179,7 +179,7 @@ function chart3(time, hours, dev){
       .attr("x",60)
       .attr("dy", "1em")
       .style("text-anchor", "middle")
-      .text("Average consumption: "+mean_v.toFixed(3));
+      .text("Average consumption: "+mean_v.toFixed(3)+" KW");
 
    /*svg.append("rect")
        .attr("class", "zoom")
