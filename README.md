@@ -11,6 +11,9 @@ Our project aims to help a common user in viewing and analyzing data related to 
 * [D3.js](https://d3js.org/) 
 * [Bootstrap](https://getbootstrap.com/) 
 
+# Demo
+[![Watch the video](img/demo.PNG)](https://www.youtube.com/watch?v=0JRSY2da3kc)
+
 ### Team
 * [Fabio Montello](https://www.linkedin.com/in/fabiomontello/) 
 * [Leonardo Salvucci](https://www.linkedin.com/in/leonardo-salvucci/)  
