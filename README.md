@@ -19,6 +19,7 @@ Our project aims to help a common user in viewing and analyzing data related to 
 * [Leonardo Salvucci](https://www.linkedin.com/in/leonardo-salvucci/)  
 
 ### Useful links
+Data manipulation: https://colab.research.google.com/drive/1pByLxG7t0G9hJ9pqRmo0wPuflu1DU13D/ <br/>
 Link: https://fabiomontello.github.io/va-IOT-project/ <br/>
 Slide presentation: https://fabiomontello.github.io/va-IOT-project/ <br/>
 Documentaion: https://fabiomontello.github.io/va-IOT-project/
