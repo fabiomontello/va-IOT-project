@@ -15,11 +15,11 @@ Our project aims to help a common user in viewing and analyzing data related to 
 Here the graphs used to represent the data are shown visually. More details can be obtained from the paper (based on the corresponding chapter)
 
 ### Area chart [Ch 5.1]
-<img src="t-SNE.gif" data-canonical-src="t-SNE.gif" height="600"/>
+<img src="1.PNG" data-canonical-src="1.PNG" height="600"/>
 ### Correlation matrix [Ch 5.2]
-<img src="t-SNE.gif" data-canonical-src="t-SNE.gif" height="600"/>
-### Scatterplot and parallel coordinates [Ch 5.3]
-<img src="t-SNE.gif" data-canonical-src="t-SNE.gif" height="600"/>
+<img src="2.PNG" data-canonical-src="2.PNG" height="600"/>
+### Scatter plot and parallel coordinated 
+<img src="8.PNG" data-canonical-src="8.PNG" height="600"/>
 ### Scatterplot and parallel coordinates [Ch 5.3]
 <img src="t-SNE.gif" data-canonical-src="t-SNE.gif" height="600"/>
 ### Heat map with bar plot and line chart [Ch 5.4]
