@@ -15,7 +15,7 @@ Our project aims to help a common user in viewing and analyzing data related to 
 * [Bootstrap](https://getbootstrap.com/) 
 
 ### Visualizations and functionalities
-Here the graphs used to represent the data are shown visually. More details can be obtained from the paper (based on the corresponding chapter)
+The graphs used to represent the data are shown visually. More details can be obtained from the paper (based on the corresponding chapter).
 
 ### Area chart [Ch 5.1]
 
