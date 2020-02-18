@@ -16,26 +16,26 @@ Here the graphs used to represent the data are shown visually. More details can 
 
 ### Area chart [Ch 5.1]
 
-<img src="img/1.PNG" data-canonical-src="img/1.PNG" height="600"/>
+<img src="img/1.PNG" data-canonical-src="img/1.PNG"/>
 
 ### Correlation matrix [Ch 5.2]
 
-<img src="img/7.PNG" data-canonical-src="img/7.PNG" height="600"/>
+<img src="img/7.PNG" data-canonical-src="img/7.PNG"/>
 
 ### Scatter plot and parallel coordinated [Ch 5.3]
 
-<img src="img/8.PNG" data-canonical-src="img/8.PNG" height="600"/>
+<img src="img/8.PNG" data-canonical-src="img/8.PNG"  height="600"/>
 
 ### Heat map with bar plot and line chart [Ch 5.4]
 
-<img src="img/2.PNG" data-canonical-src="img/2.PNG" height="600"/>
-<img src="img/3.PNG" data-canonical-src="img/3.PNG" height="600"/>
-<img src="img/4.PNG" data-canonical-src="img/4.PNG" height="600"/>
+<img src="img/2.PNG" data-canonical-src="img/2.PNG"/>
+<img src="img/3.PNG" data-canonical-src="img/3.PNG"/>
+<img src="img/4.PNG" data-canonical-src="img/4.PNG"/>
 
-### Box plot [Ch 5.5]
+### Box plot and bar plots[Ch 5.5]
 
-<img src="img/5.PNG" data-canonical-src="img/5.PNG" height="600"/>
-<img src="img/6.PNG" data-canonical-src="img/6.PNG" height="600"/>
+<img src="img/5.PNG" data-canonical-src="img/5.PNG"/>
+<img src="img/6.PNG" data-canonical-src="img/6.PNG"/>
 
 ### Demo
 [![Watch the video](image.PNG)](https://youtu.be/q9FZSaIXjq8)
