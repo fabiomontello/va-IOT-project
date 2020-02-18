@@ -12,7 +12,7 @@ Our project aims to help a common user in viewing and analyzing data related to 
 * [Bootstrap](https://getbootstrap.com/) 
 
 # Demo
-[![Watch the video](image.PNG)](https://www.youtube.com/watch?v=0JRSY2da3kc)
+[![Watch the video](image.PNG)](https://youtu.be/q9FZSaIXjq8)
 
 ### Team
 * [Fabio Montello](https://www.linkedin.com/in/fabiomontello/) 
