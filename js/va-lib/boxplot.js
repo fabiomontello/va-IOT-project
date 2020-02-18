@@ -113,7 +113,7 @@ d3.csv("data/clean_dataset.csv", function(error, rows) {
       .on("mouseover", function(d){ d3.select("#box"+d.key.replace(/ /g,'').replace('[','').replace(']','')).style("opacity", "1");})
       .on("mouseleave", function(d){ d3.select("#box"+d.key.replace(/ /g,'').replace('[','').replace(']','')).style("opacity", "0");})
       .append("title").text(function(d) { 
-           return "Max: "+d.value.max+"\nQ3: "+d.value.q3+"\nMedian: "+d.value.median+"\nQ1: "+d.value.q1+"\nMin: "+d.value.min; 
+           return "Max: "+d.value.max+"\nQ_95%: "+d.value.q3+"\nMedian: "+d.value.median+"\nQ_5%: "+d.value.q1+"\nMin: "+d.value.min; 
       });
 
   // rectangle for the main box
@@ -137,7 +137,7 @@ d3.csv("data/clean_dataset.csv", function(error, rows) {
         .on("mouseover", function(d){ d3.select("#box"+d.key.replace(/ /g,'').replace('[','').replace(']','')).style("opacity", "1");})
         .on("mouseleave", function(d){ d3.select("#box"+d.key.replace(/ /g,'').replace('[','').replace(']','')).style("opacity", "0");})
         .append("title").text(function(d) { 
-           return "Max: "+d.value.max+"\nQ3: "+d.value.q3+"\nMedian: "+d.value.median+"\nQ1: "+d.value.q1+"\nMin: "+d.value.min; 
+           return "Max: "+d.value.max+"\nQ_95%: "+d.value.q3+"\nMedian: "+d.value.median+"\nQ_5%: "+d.value.q1+"\nMin: "+d.value.min; 
         });
 
   svg
@@ -159,7 +159,7 @@ d3.csv("data/clean_dataset.csv", function(error, rows) {
         .on("mouseover", function(d){ d3.select("#box"+d.key.replace(/ /g,'').replace('[','').replace(']','')).style("opacity", "1");})
         .on("mouseleave", function(d){ d3.select("#box"+d.key.replace(/ /g,'').replace('[','').replace(']','')).style("opacity", "0");})
         .append("title").text(function(d) { 
-           return "Max: "+d.value.max+"\nQ3: "+d.value.q3+"\nMedian: "+d.value.median+"\nQ1: "+d.value.q1+"\nMin: "+d.value.min; 
+           return "Max: "+d.value.max+"\nQ_95%: "+d.value.q3+"\nMedian: "+d.value.median+"\nQ_5%: "+d.value.q1+"\nMin: "+d.value.min; 
         });
 
   // Show the median
