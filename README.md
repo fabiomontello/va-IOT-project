@@ -1,2 +1,2 @@
-# va-IOT-project
-LINK: https://fabiomontello.github.io/va-IOT-project/
+# Visual Analytics - Smart home monitoring
+Link: https://fabiomontello.github.io/va-IOT-project/
