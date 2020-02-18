@@ -23,11 +23,11 @@ Here the graphs used to represent the data are shown visually. More details can 
 
 ### Correlation matrix [Ch 5.2]
 
-<img src="img/7.PNG" data-canonical-src="img/7.PNG"/>
+<img src="img/7.jpeg" data-canonical-src="img/7.jpeg"/>
 
 ### Scatter plot and parallel coordinated [Ch 5.3]
 
-<img src="img/8.PNG" data-canonical-src="img/8.PNG"  height="600"/>
+<img src="img/8.gif" data-canonical-src="img/8.gif"  height="600"/>
 
 ### Heat map with bar plot and line chart [Ch 5.4]
 
