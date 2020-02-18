@@ -25,7 +25,7 @@ Here the graphs used to represent the data are shown visually. More details can 
 ### Heat map with bar plot and line chart [Ch 5.4]
 <img src="t-SNE.gif" data-canonical-src="t-SNE.gif" height="600"/>
 ### Box plot [Ch 5.5]
-<img src="t-SNE.gif" data-canonical-src="t-SNE.gif" height="600"/>
+<img src="t-SNE.gif" data-canonical-src="t-SNuE.gif" height="600"/>
 
 ### Demo
 [![Watch the video](image.PNG)](https://youtu.be/q9FZSaIXjq8)
