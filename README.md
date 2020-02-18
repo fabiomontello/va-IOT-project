@@ -16,18 +16,18 @@ Our project aims to help a common user in viewing and analyzing data related to 
 ### Visualizations and functionalities
 Here the graphs used to represent the data are shown visually. More details can be obtained from the paper (based on the corresponding chapter)
 
-# Area chart [Ch 5.1]
-
-# Correlation matrix [Ch 5.2]
-
-# Scatterplot and parallel coordinates [Ch 5.3]
-
-# Scatterplot and parallel coordinates [Ch 5.3]
-
-# Heat map with bar plot and line chart [Ch 5.4]
-
-# Box plot [Ch 5.5]
-
+### Area chart [Ch 5.1]
+<img src="t-SNE.gif" data-canonical-src="t-SNE.gif" height="600"/>
+### Correlation matrix [Ch 5.2]
+<img src="t-SNE.gif" data-canonical-src="t-SNE.gif" height="600"/>
+### Scatterplot and parallel coordinates [Ch 5.3]
+<img src="t-SNE.gif" data-canonical-src="t-SNE.gif" height="600"/>
+### Scatterplot and parallel coordinates [Ch 5.3]
+<img src="t-SNE.gif" data-canonical-src="t-SNE.gif" height="600"/>
+### Heat map with bar plot and line chart [Ch 5.4]
+<img src="t-SNE.gif" data-canonical-src="t-SNE.gif" height="600"/>
+### Box plot [Ch 5.5]
+<img src="t-SNE.gif" data-canonical-src="t-SNE.gif" height="600"/>
 
 ### Demo
 [![Watch the video](image.PNG)](https://youtu.be/q9FZSaIXjq8)
