@@ -17,6 +17,6 @@ Our project aims to help a common user in viewing and analyzing data related to 
 * [Leonardo Salvucci](https://www.linkedin.com/in/leonardo-salvucci/)  
 
 # Useful links
-Link: https://fabiomontello.github.io/va-IOT-project/
-Slide presentation: https://fabiomontello.github.io/va-IOT-project/
+Link: https://fabiomontello.github.io/va-IOT-project/ <br/>
+Slide presentation: https://fabiomontello.github.io/va-IOT-project/ <br/>
 Documentaion: https://fabiomontello.github.io/va-IOT-project/
