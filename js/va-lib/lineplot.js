@@ -8,7 +8,7 @@ function chart3(time, hours, dev){
     localStorage.setItem('hour', hours);
     localStorage.setItem('dev', dev);
 
-    document.getElementById("g1").innerHTML="<b class='h5 mb-0 font-weight-bold text-gray-800'>Day:</b> "+time+" January<b class='h5 mb-0 font-weight-bold text-gray-800'>, Hour:</b> "+hours+":00<b class='h5 mb-0 font-weight-bold text-gray-800'>, Device:</b> "+dev+"";
+    document.getElementById("g1").innerHTML="<b class='h5 mb-0 font-weight-bold text-gray-800'>Day:</b> "+time+" January<b class='h5 mb-0 font-weight-bold text-gray-800'>, Hour:</b> "+hours+":00<b class='h5 mb-0 font-weight-bold text-gray-800'>, Device:</b> "+dev.slice(0,-4)+"";
     document.getElementById("bac").style.display="block";
     document.getElementById("chart").innerHTML = "";
     document.getElementById("rad").style.display="none";
@@ -36,7 +36,7 @@ function chart3(time, hours, dev){
     y = d3.scaleLinear().range([height, 0]),
     y2 = d3.scaleLinear().range([height2, 0]);
 
-    var xAxis = d3.axisBottom(x),
+    var xAxis = d3.axisBottom(x).tickFormat(d3.timeFormat("%H:%M")),
     xAxis2 = d3.axisBottom(x2),
     yAxis = d3.axisLeft(y);
 
@@ -74,16 +74,19 @@ function chart3(time, hours, dev){
 
   d3.csv("data/clean_dataset.csv", function (error, datas) {
       var data=[];
+      var m_d=[];
       var i;
       var l=0;
       for (i=0; i<datas.length; i++) {
         var date = new Date(datas[i]['time_europe']);
         if((parseInt(date.getDate())==parseInt(time)) && (parseInt(date.getHours())==parseInt(hours))){
+          m_d.push(Number(parseFloat(datas[i][dev])).toFixed(3));
           data[l]={Date: date, kw: Number(parseFloat(datas[i][dev])).toFixed(3)};
           l=l+1;
         }
       }
-      console.log(data);
+
+  var mean_v=getMean(m_d, m_d.length);
 
   x.domain(d3.extent(data, function(d) { return d.Date; }));
   y.domain([0, d3.max(data, function (d) { return d.kw; })]);
@@ -167,6 +170,16 @@ function chart3(time, hours, dev){
       .attr("class", "brush")
       .call(brush)
       .call(brush.move, x.range());
+
+
+  d3.selectAll('#ttz').remove();
+  svg.append("text")
+      .attr("id","ttz")
+      .attr("y", -10)
+      .attr("x",60)
+      .attr("dy", "1em")
+      .style("text-anchor", "middle")
+      .text("Average consumption: "+mean_v.toFixed(3)+" KW");
 
    /*svg.append("rect")
        .attr("class", "zoom")
