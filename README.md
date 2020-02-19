@@ -45,7 +45,7 @@ The graphs used to represent the data are shown visually. More details can be ob
 * [Leonardo Salvucci](https://www.linkedin.com/in/leonardo-salvucci/)  
 
 ### Useful links
-Data manipulation: https://colab.research.google.com/drive/1pByLxG7t0G9hJ9pqRmo0wPuflu1DU13D <br/>
-Link: https://fabiomontello.github.io/va-IOT-project/ <br/>
+Data pre-processing: https://colab.research.google.com/drive/1AJNPuR1Izu78_EHs5V93kKoAQMxOulh4 <br/>
 Slide presentation: https://fabiomontello.github.io/va-IOT-project/ <br/>
-Documentaion: https://fabiomontello.github.io/va-IOT-project/
+Documentation: https://fabiomontello.github.io/va-IOT-project/ <br/>
+URL: https://fabiomontello.github.io/va-IOT-project/ <br/>
