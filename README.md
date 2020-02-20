@@ -1,4 +1,4 @@
-# Visual Analytics - Smart Home Monitoring
+# Visual Analytics - Home Energy Monitoring
 This repository contains the code and all the references for our Visual Analytics project.
 
 ### Demo
