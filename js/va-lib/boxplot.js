@@ -57,7 +57,7 @@ function show_data(rows, dev, p){
     
     d3.select("#"+dev.replace(/ /g,'')).remove();
     var device=dev+" [kW]";
-  var test=[];
+    var test=[];
           count = 0
 	        for (i=0; i<rows.length; i++) {
                 if(rows[i][device] > 1.8){
@@ -78,7 +78,7 @@ function show_data(rows, dev, p){
               .attr("stroke", "none")
               .style("opacity", .3);
               
-              console.log(x(test[0].key))
+              //console.log(x(test[0].key))
             if(count != 0){
               svg.append('text')
               .attr("x", function(d){return(x(test[0].key))})
@@ -204,7 +204,7 @@ d3.csv("data/clean_dataset.csv", function(error, rows) {
     .append("rect")
         .attr("id", function(d, i) {return (d.key).replace(/ /g,'')})
         .attr("x", function(d){return(x(d.key)-boxWidth/2)})
-        .attr("y", function(d){return(y(0.7))})
+        .attr("y", function(d){return(y(1.8))})
         .attr("height", height)
         .attr("width", boxWidth )
         .style("opacity",0)
