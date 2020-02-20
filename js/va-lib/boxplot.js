@@ -91,7 +91,7 @@ function show_data(rows, dev, p){
               .style("cursor", "pointer")
               .text(count)
               .append("title").text(function(d) { 
-                  return ((100*count)/1080)+"% of total surveys"; 
+                  return ((100*count)/10080).toFixed(3)+"% of total surveys"; 
               });
             }
 
