@@ -100,7 +100,24 @@
         // };
         })
     .then(function(data) {
-        console.log(data)
+
+        var avguse = 0
+        var avggen = 0
+        var cnt = 0
+        data.forEach(function(d,i){
+            cnt = cnt + 1
+            avguse += d.use
+            avggen += d.gen
+        })
+        avguse = avguse/cnt
+        avggen = avggen/cnt
+
+        d3.select('#avguse').text(avguse.toFixed(2) + ' kW')
+        d3.select('#avggen').text(avggen.toFixed(2) + ' kW')
+        d3.select('#curruse').text(data[data.length -1].use.toFixed(2) + ' kW')
+        d3.select('#currgen').text(data[data.length -1].gen.toFixed(2) + ' kW')
+        d3.selectAll('.still-loading').style('display', 'none');
+        d3.selectAll('.loaded').style('display', 'block');
 
         for(var i= 0; i < data.length; i++){
             mapDateTag[i] = data[i].date.getTime()/1000
