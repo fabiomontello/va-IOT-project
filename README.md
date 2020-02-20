@@ -37,7 +37,7 @@ The graphs used to represent the data are shown visually. More details can be ob
 
 ### Box plot and bar plots [Ch 5.5]
 
-<img src="img/5.PNG" data-canonical-src="img/5.PNG"/>
+<img src="img/41.PNG" data-canonical-src="img/5.PNG"/>
 <img src="img/9.PNG" data-canonical-src="img/9.PNG"/>
 
 ### Team
