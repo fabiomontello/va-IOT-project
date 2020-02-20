@@ -88,7 +88,11 @@ function show_data(rows, dev, p){
               .style("fill", color(p))
               .attr('font-size', '20px')
               .attr('font-weight', '600')
+              .style("cursor", "pointer")
               .text(count)
+              .append("title").text(function(d) { 
+                  return ((100*count)/1080)+"% of total surveys"; 
+              });
             }
 
       
