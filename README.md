@@ -47,6 +47,6 @@ The graphs used to represent the data are shown visually. More details can be ob
 
 ### Useful links
 Data pre-processing: https://colab.research.google.com/drive/1AJNPuR1Izu78_EHs5V93kKoAQMxOulh4 <br/>
-Slide presentation: https://fabiomontello.github.io/va-IOT-project/ <br/>
+Slide presentation: https://www.slideshare.net/LeonardoSalvucci1/home-energy-monitoring-system <br/>
 Documentation: https://drive.google.com/open?id=1CrIWVBUOywmkOvZHdRjgSn97o-TPa6RZ <br/>
 URL: https://fabiomontello.github.io/va-IOT-project/ <br/>
