@@ -45,10 +45,11 @@ function back_state(){
 }
 
 function back_state2(){
-    document.getElementById("boxplt").style.display="block";
     document.getElementById("brpplt").style.display="none";
     document.getElementById("bxm").style.display="none";
     document.getElementById("brpplt1").innerHTML = "";
+    document.getElementById("boxplt").innerHTML = "";
+    boxpl();
 }
 
 //adapted from https://blog.poettner.de/2011/06/09/simple-statistics-with-php/

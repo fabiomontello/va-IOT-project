@@ -1,10 +1,11 @@
 function boxpl(){
-// set the dimensions and margins of the graph
+
 localStorage.setItem('stat2', 1);
 document.getElementById("boxplt").style.display="block";
 document.getElementById("brpplt").style.display="none";
 document.getElementById("bxm").style.display="none";
 document.getElementById("brpplt1").innerHTML = "";
+
 var margin = {top: 40, right: 30, bottom: 30, left: 43},
     width = 1160 - margin.left - margin.right,
     height = 600 - margin.top - margin.bottom;
@@ -26,7 +27,55 @@ var svg = d3.select("#boxplt")
           "translate(" + margin.left + "," + margin.top + ")");
 
 
+ var x = d3.scaleBand()
+    .range([ 0, width ])
+    .domain(["Dishwasher", "Furnace 1", "Furnace 2", "Home office", "Fridge", "Wine cellar", "Garage door", "Kitchen 12", "Kitchen 14", "Kitchen 38", "Barn", "Well", "Microwave", "Living room"])
+    .paddingInner(1)
+    .paddingOuter(.5)
+  svg.append("g")
+    .attr("transform", "translate(0," + height + ")")
+    .call(d3.axisBottom(x));
+
+
+  var y = d3.scaleLinear()
+    .domain([0,0.8])
+    .range([height, 0])
+  var yAxis = d3.axisLeft(y).ticks(7).tickFormat(function (d) {  return d+" kW"; });
+  svg.append("g").call(yAxis);
+
+ var color = d3.scaleOrdinal(["#1f77b4", "#aec7e8", "#ff7f0e", "#ffbb78", "#2ca02c", "#98df8a", "#d62728", "#ff9896", "#9467bd", "#c5b0d5", "#8c564b", "#c49c94", "#e377c2", "#f7b6d2", "#7f7f7f", "#c7c7c7", "#bcbd22", "#dbdb8d", "#17becf", "#9edae5"]);
+
+
+
+function show_data(rows, dev, p){
+	document.getElementById("bxm").style.display="block";
+	//var color = d3.scaleOrdinal(["#1f77b4", "#aec7e8", "#ff7f0e", "#ffbb78", "#2ca02c", "#98df8a", "#d62728", "#ff9896", "#9467bd", "#c5b0d5", "#8c564b", "#c49c94", "#e377c2", "#f7b6d2", "#7f7f7f", "#c7c7c7", "#bcbd22", "#dbdb8d", "#17becf", "#9edae5"]);
+    
+    d3.select("#"+dev.replace(/ /g,'')).remove();
+    var device=dev+" [kW]";
+	var test=[];
+	        for (i=0; i<rows.length; i++) {
+		     test.push({key:dev, val: rows[i][device]});
+            }
+            var jitterWidth = 25
+            svg
+           .selectAll("indPoints")
+           .data(test)
+           .enter()
+           .append("circle")
+           .attr("cx", function(d){return(x(d.key) - jitterWidth/2 + Math.random()*jitterWidth )})
+           .attr("cy", function(d){return(y(d.val))})
+           .attr("r", 4)
+           .style("fill", color(p))
+           .attr("stroke", "none")
+           .style("opacity", .3);
+    
+
+}
+
 d3.csv("data/clean_dataset.csv", function(error, rows) {
+
+  var test=[];
 
   var i;
   var len=rows.length;
@@ -47,6 +96,8 @@ d3.csv("data/clean_dataset.csv", function(error, rows) {
       we.push(Number(parseFloat(rows[i]['Well [kW]']).toFixed(3)));
       mi.push(Number(parseFloat(rows[i]['Microwave [kW]']).toFixed(3)));
       li.push(Number(parseFloat(rows[i]['Living room [kW]']).toFixed(3)));
+
+     // test.push({key:'Barn', val: rows[i]['Barn [kW]']});
   }
 
   var lung=di.length;
@@ -68,28 +119,6 @@ d3.csv("data/clean_dataset.csv", function(error, rows) {
   {key: 'Living room', value:{q1: getCII(li, lung)[1], median: getCII(li, lung)[2], q3: getCII(li, lung)[3], interQuantileRange: (getCII(li, lung)[3]-getCII(li, lung)[1]), min: getCII(li, lung)[0], max: getCII(li, lung)[4]}}
   ];
 
-
-
- // localStorage.setItem('global', JSON.stringify(sumstat));
-
-  var x = d3.scaleBand()
-    .range([ 0, width ])
-    .domain(["Dishwasher", "Furnace 1", "Furnace 2", "Home office", "Fridge", "Wine cellar", "Garage door", "Kitchen 12", "Kitchen 14", "Kitchen 38", "Barn", "Well", "Microwave", "Living room"])
-    .paddingInner(1)
-    .paddingOuter(.5)
-  svg.append("g")
-    .attr("transform", "translate(0," + height + ")")
-    .call(d3.axisBottom(x))
-
-
-  var y = d3.scaleLinear()
-    .domain([0,0.8])
-    .range([height, 0])
-  var yAxis = d3.axisLeft(y).ticks(7).tickFormat(function (d) {  return d+" kW"; });
-  svg.append("g").call(yAxis)
-
-  //Color scale
-  var color = d3.scaleOrdinal(["#1f77b4", "#aec7e8", "#ff7f0e", "#ffbb78", "#2ca02c", "#98df8a", "#d62728", "#ff9896", "#9467bd", "#c5b0d5", "#8c564b", "#c49c94", "#e377c2", "#f7b6d2", "#7f7f7f", "#c7c7c7", "#bcbd22", "#dbdb8d", "#17becf", "#9edae5"]);
   
   // Show the main vertical line
   svg
@@ -108,7 +137,6 @@ d3.csv("data/clean_dataset.csv", function(error, rows) {
       .style("cursor", "pointer")
       .on("click", function(d) {
           get_bar2(d.key);
-         //document.getElementById("dayc").innerHTML = d.key;
          })
       .on("mouseover", function(d){ d3.select("#box"+d.key.replace(/ /g,'').replace('[','').replace(']','')).style("opacity", "1");})
       .on("mouseleave", function(d){ d3.select("#box"+d.key.replace(/ /g,'').replace('[','').replace(']','')).style("opacity", "0");})
@@ -117,12 +145,14 @@ d3.csv("data/clean_dataset.csv", function(error, rows) {
       });
 
   // rectangle for the main box
+  //var color = d3.scaleOrdinal(["#1f77b4", "#aec7e8", "#ff7f0e", "#ffbb78", "#2ca02c", "#98df8a", "#d62728", "#ff9896", "#9467bd", "#c5b0d5", "#8c564b", "#c49c94", "#e377c2", "#f7b6d2", "#7f7f7f", "#c7c7c7", "#bcbd22", "#dbdb8d", "#17becf", "#9edae5"]);
   var boxWidth = 50
   svg
     .selectAll("boxes")
     .data(sumstat)
     .enter()
     .append("rect")
+        .attr("id", function(d) {return (d.key).replace(/ /g,'')})
         .attr("x", function(d){return(x(d.key)-boxWidth/2)})
         .attr("y", function(d){return(y(d.value.q3))})
         .attr("height", function(d){return(y(d.value.q1)-y(d.value.q3))})
@@ -130,9 +160,10 @@ d3.csv("data/clean_dataset.csv", function(error, rows) {
         .attr("stroke", "black")
         .style("fill", function(d,i){return color(i)})
         .style("cursor", "pointer")
-        .on("click", function(d) {
-          get_bar2(d.key);
-         //document.getElementById("dayc").innerHTML = d.key;
+        .on("click", function(d,i) {
+            get_bar2(d.key);
+            show_data(rows, d.key, i);
+            d3.select(this).remove;
          })
         .on("mouseover", function(d){ d3.select("#box"+d.key.replace(/ /g,'').replace('[','').replace(']','')).style("opacity", "1");})
         .on("mouseleave", function(d){ d3.select("#box"+d.key.replace(/ /g,'').replace('[','').replace(']','')).style("opacity", "0");})
@@ -140,21 +171,26 @@ d3.csv("data/clean_dataset.csv", function(error, rows) {
            return "Max: "+d.value.max+"\nQ_95%: "+d.value.q3+"\nMedian: "+d.value.median+"\nQ_5%: "+d.value.q1+"\nMin: "+d.value.min; 
         });
 
+
+
+
+
   svg
     .selectAll("boxes")
     .data(sumstat)
     .enter()
     .append("rect")
+        .attr("id", function(d, i) {return (d.key).replace(/ /g,'')})
         .attr("x", function(d){return(x(d.key)-boxWidth/2)})
         .attr("y", function(d){return(y(0.7))})
         .attr("height", height)
         .attr("width", boxWidth )
         .style("opacity",0)
-        //.style("fill", function(d,i){return color(i)})
         .style("cursor", "pointer")
-        .on("click", function(d) {
+        .on("click", function(d,i) {
           get_bar2(d.key);
-         //document.getElementById("dayc").innerHTML = d.key;
+          show_data(rows, d.key, i);
+          d3.select(this).remove;
          })
         .on("mouseover", function(d){ d3.select("#box"+d.key.replace(/ /g,'').replace('[','').replace(']','')).style("opacity", "1");})
         .on("mouseleave", function(d){ d3.select("#box"+d.key.replace(/ /g,'').replace('[','').replace(']','')).style("opacity", "0");})

@@ -155,13 +155,10 @@ d3.csv("data/clean_dataset.csv", function(datas) {
 })
 }
 
-
-
 function get_bar2(keys){
 localStorage.setItem('state2', 2);
 localStorage.setItem('keyss', keys);
-
-document.getElementById("boxplt").style.display="none";
+document.getElementById("brpplt1").innerHTML = "";
 document.getElementById("brpplt").style.display="block";
 document.getElementById("bxm").style.display="block";
 document.getElementById("brpplt2").style.display="none";
